@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean Player - Channel {{ channel_id }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .player-container {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .tv-frame {
+            background: #000;
+            border: 8px solid #2d3748;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            max-width: 75%;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 1024px) {
+            .tv-frame {
+                max-width: 90%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .tv-frame {
+                max-width: 95%;
+                border: 4px solid #2d3748;
+            }
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        .source-btn {
+            transition: all 0.3s ease;
+        }
+        .source-btn:hover {
+            transform: scale(1.05);
+        }
+        .loading {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body class="font-sans min-h-screen">
+    <!-- Header -->
+    <header class="bg-black bg-opacity-80 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <a href="/" class="flex items-center space-x-3 hover:text-purple-400 transition">
+                        <i class="fas fa-arrow-left text-xl"></i>
+                        <i class="fas fa-tv text-2xl"></i>
+                        <h1 class="text-xl font-bold">Clean Player</h1>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="bg-green-600 px-3 py-1 rounded-full text-sm">
+                        <i class="fas fa-circle mr-2 animate-pulse"></i>Channel {{ channel_id }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="player-container rounded-2xl shadow-2xl overflow-hidden">
+            
+            <!-- Player Area -->
+            <div class="p-6">
+                <div class="tv-frame max-w-4xl mx-auto">
+                    <div class="relative" style="padding-bottom: 56.25%;">
+                        <iframe 
+                            id="playerFrame"
+                            src=""
+                            allowfullscreen
+                            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                            sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"
+                            class="absolute top-0 left-0 w-full h-full"
+                        ></iframe>
+                        <div id="loadingOverlay" class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center">
+                            <div class="text-center text-white">
+                                <i class="fas fa-spinner fa-spin text-4xl mb-4"></i>
+                                <p class="text-lg">กำลังโหลดสตรีม...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Source Selection -->
+            <div class="bg-gray-900 p-6">
+                <h3 class="text-white font-semibold mb-4">
+                    <i class="fas fa-link mr-2"></i>เลือกแหล่งที่มาสตรีม:
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+                    <button onclick="loadSource('watch')" class="source-btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg">
+                        <i class="fas fa-play mr-2"></i>Watch
+                    </button>
+                    <button onclick="loadSource('cast')" class="source-btn bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg">
+                        <i class="fas fa-broadcast-tower mr-2"></i>Cast
+                    </button>
+                    <button onclick="loadSource('plus')" class="source-btn bg-purple-600 hover:bg-purple-700 text-white px-4 py-3 rounded-lg">
+                        <i class="fas fa-plus mr-2"></i>Plus
+                    </button>
+                    <button onclick="loadSource('stream')" class="source-btn bg-orange-600 hover:bg-orange-700 text-white px-4 py-3 rounded-lg">
+                        <i class="fas fa-stream mr-2"></i>Stream
+                    </button>
+                    <button onclick="loadSource('casting')" class="source-btn bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-lg">
+                        <i class="fas fa-tv mr-2"></i>Casting
+                    </button>
+                </div>
+
+                <!-- Alternative Actions -->
+                <div class="mt-6 pt-6 border-t border-gray-700">
+                    <h4 class="text-white font-semibold mb-3">
+                        <i class="fas fa-tools mr-2"></i>ทางเลือกอื่น:
+                    </h4>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="openDirect()" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-external-link-alt mr-2"></i>เปิด Direct
+                        </button>
+                        <button onclick="openProxy()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-shield-alt mr-2"></i>เปิด Proxy
+                        </button>
+                        <button onclick="copyLink()" class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-copy mr-2"></i>คัดลอกลิงก์
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Info -->
+        <div class="mt-8 bg-yellow-900 bg-opacity-50 rounded-lg p-6 text-white">
+            <h3 class="font-semibold mb-2">
+                <i class="fas fa-info-circle mr-2"></i>ข้อมูลเกี่ยวกับปัญหาที่อาจเจอ:
+            </h3>
+            <ul class="space-y-1 text-sm text-yellow-200">
+                <li>• <strong>ERR_BLOCKED_BY_CLIENT:</strong> ปิด ad blocker หรือเพิ่ม dlhd.pk ใน whitelist</li>
+                <li>• <strong>Script Errors:</strong> Scripts บางตัวถูก block แต่สตรีมยังทำงานได้</li>
+                <li>• <strong>CORS Issues:</strong> ใช้ proxy หรือเปิดในหน้าต่างใหม่</li>
+                <li>• <strong>Google Frame:</strong> ถูก block แต่ไม่กระทบสตรีม</li>
+            </ul>
+        </div>
+    </main>
+
+    <script>
+        const channelId = '{{ channel_id }}';
+        const baseUrl = 'https://dlhd.pk';
+        const proxyUrl = 'http://localhost:5001';
+
+        function loadSource(type) {
+            const iframe = document.getElementById('playerFrame');
+            const loading = document.getElementById('loadingOverlay');
+            
+            // แสดง loading
+            loading.style.display = 'flex';
+            
+            // ลองแหล่งทางต่างๆ
+            const sources = {
+                'watch': `${baseUrl}/watch/stream-${channelId}.php`,
+                'cast': `${baseUrl}/cast/stream-${channelId}.php`,
+                'plus': `${baseUrl}/plus/stream-${channelId}.php`,
+                'stream': `${baseUrl}/stream/stream-${channelId}.php`,
+                'casting': `${baseUrl}/casting/stream-${channelId}.php`
+            };
+            
+            iframe.src = sources[type];
+            
+            // ซ่อน loading หลัง 5 วินาที
+            setTimeout(() => {
+                loading.style.display = 'none';
+            }, 5000);
+        }
+
+        function openDirect() {
+            window.open(`${baseUrl}/watch.php?id=${channelId}`, '_blank');
+        }
+
+        function openProxy() {
+            window.open(`${proxyUrl}/proxy/stream/${channelId}`, '_blank');
+        }
+
+        function copyLink() {
+            const link = `${baseUrl}/watch.php?id=${channelId}`;
+            navigator.clipboard.writeText(link).then(() => {
+                alert('คัดลอกลิงก์แล้ว: ' + link);
+            });
+        }
+
+        // โหลด source แรกอัตโนมัติ
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loadSource('watch');
+            }, 1000);
+        });
+
+        // ซ่อน loading เมื่อ iframe โหลดเสร็จ
+        document.getElementById('playerFrame').addEventListener('load', () => {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

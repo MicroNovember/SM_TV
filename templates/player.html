@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ channel.name }} - Live TV Player</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/player-fix.js') }}"></script>
+    <link href="{{ url_for('static', filename='css/player-fix.css') }}" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .player-container {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .tv-frame {
+            background: #000;
+            border: 8px solid #2d3748;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            max-width: 75%;
+            margin: 0 auto;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        .channel-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .control-btn {
+            transition: all 0.3s ease;
+        }
+        .control-btn:hover {
+            transform: scale(1.1);
+        }
+        @media (max-width: 768px) {
+            .tv-frame {
+                border: 4px solid #2d3748;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans min-h-screen">
+    <!-- Header -->
+    <header class="bg-black bg-opacity-80 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <a href="/" class="flex items-center space-x-3 hover:text-purple-400 transition">
+                        <i class="fas fa-arrow-left text-xl"></i>
+                        <i class="fas fa-tv text-2xl"></i>
+                        <h1 class="text-xl font-bold">Live TV Channels</h1>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="toggleFullscreen()" class="control-btn bg-purple-600 hover:bg-purple-700 px-3 py-2 rounded-lg">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button onclick="refreshPlayer()" class="control-btn bg-green-600 hover:bg-green-700 px-3 py-2 rounded-lg">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Player Section -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="player-container rounded-2xl shadow-2xl overflow-hidden">
+            
+            <!-- Channel Info -->
+            <div class="channel-info text-white p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-3xl font-bold mb-2 flex items-center">
+                            <i class="fas fa-tv mr-3"></i>
+                            {{ channel.name }}
+                        </h1>
+                        <p class="text-purple-200">
+                            <i class="fas fa-broadcast-tower mr-2"></i>
+                            กำลังออกอากาศสด • คุณภาพ HD
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <div class="bg-red-600 px-3 py-1 rounded-full text-sm font-semibold animate-pulse">
+                            <i class="fas fa-circle mr-2"></i>LIVE
+                        </div>
+                        <p class="text-sm mt-2 text-purple-200">ID: {{ channel.id }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Player -->
+            <div class="p-6">
+                <div class="tv-frame max-w-4xl mx-auto">
+                    <div class="relative" style="padding-bottom: 56.25%;">
+                        <iframe 
+                            id="playerFrame"
+                            src="{{ channel.player_url }}"
+                            allowfullscreen
+                            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation"
+                            class="absolute top-0 left-0 w-full h-full"
+                            onload="console.log('Player loaded')"
+                            onerror="console.log('Player error')"
+                        ></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="bg-gray-900 p-6">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center space-x-4">
+                        <button onclick="changeQuality('hd')" class="control-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-hd mr-2"></i>HD
+                        </button>
+                        <button onclick="changeQuality('sd')" class="control-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-sd mr-2"></i>SD
+                        </button>
+                        <button onclick="toggleMute()" class="control-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-volume-up" id="muteIcon"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <button onclick="shareChannel()" class="control-btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-share-alt mr-2"></i>แชร์
+                        </button>
+                        <button onclick="reportIssue()" class="control-btn bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>รายงานปัญหา
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Alternative Sources -->
+                <div class="mt-6 pt-6 border-t border-gray-700">
+                    <h3 class="text-white font-semibold mb-3">
+                        <i class="fas fa-link mr-2"></i>แหล่งอื่น (ถ้าไม่ได้)
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="changeSource('/cast/stream-{{ channel.id }}.php')" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
+                            Cast
+                        </button>
+                        <button onclick="changeSource('/watch/stream-{{ channel.id }}.php')" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
+                            Watch
+                        </button>
+                        <button onclick="changeSource('/plus/stream-{{ channel.id }}.php')" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
+                            Plus
+                        </button>
+                        <button onclick="changeSource('/stream/stream-{{ channel.id }}.php')" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
+                            Stream
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Channels -->
+        <div class="text-center mt-8">
+            <a href="/" class="inline-flex items-center bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg transition">
+                <i class="fas fa-arrow-left mr-2"></i>
+                กลับไปหน้ารายการช่อง
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black bg-opacity-80 text-white py-6 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-400">
+                <i class="fas fa-info-circle mr-2"></i>
+                หากช่องไม่ทำงาน ให้ลองเปลี่ยนแหล่งที่มาข้างบน
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        let isMuted = false;
+        let isFullscreen = false;
+
+        function toggleFullscreen() {
+            const iframe = document.getElementById('playerFrame');
+            if (!isFullscreen) {
+                if (iframe.requestFullscreen) {
+                    iframe.requestFullscreen();
+                } else if (iframe.webkitRequestFullscreen) {
+                    iframe.webkitRequestFullscreen();
+                } else if (iframe.msRequestFullscreen) {
+                    iframe.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+            isFullscreen = !isFullscreen;
+        }
+
+        function refreshPlayer() {
+            const iframe = document.getElementById('playerFrame');
+            const currentSrc = iframe.src;
+            iframe.src = '';
+            setTimeout(() => {
+                iframe.src = currentSrc;
+            }, 100);
+        }
+
+        function changeSource(newPath) {
+            const iframe = document.getElementById('playerFrame');
+            const baseUrl = window.location.origin;
+            iframe.src = baseUrl + newPath;
+        }
+
+        function changeQuality(quality) {
+            // จำลองการเปลี่ยนคุณภาพ (อาจต้องปรับ URL จริง)
+            refreshPlayer();
+        }
+
+        function toggleMute() {
+            const iframe = document.getElementById('playerFrame');
+            const icon = document.getElementById('muteIcon');
+            
+            isMuted = !isMuted;
+            if (isMuted) {
+                icon.className = 'fas fa-volume-mute';
+            } else {
+                icon.className = 'fas fa-volume-up';
+            }
+        }
+
+        function shareChannel() {
+            const url = window.location.href;
+            if (navigator.share) {
+                navigator.share({
+                    title: '{{ channel.name }}',
+                    url: url
+                });
+            } else {
+                navigator.clipboard.writeText(url);
+                alert('คัดลอกลิงก์แล้ว!');
+            }
+        }
+
+        function reportIssue() {
+            const message = `รายงานปัญหาช่อง: {{ channel.name }} (ID: {{ channel.id }})`;
+            openInNewWindow(`https://dlhd.pk/watch.php?id={{ channel.id }}`);
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'r' || e.key === 'R') {
+                refreshPlayer();
+            } else if (e.key === 'm' || e.key === 'M') {
+                toggleMute();
+            }
+        });
+    </script>
+</body>
+</html>

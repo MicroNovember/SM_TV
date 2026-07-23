@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Live TV Player</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .player-container {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .tv-frame {
+            background: #000;
+            border: 8px solid #2d3748;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            max-width: 75%;
+            margin: 0 auto;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        .channel-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .control-btn {
+            transition: all 0.3s ease;
+        }
+        .control-btn:hover {
+            transform: scale(1.1);
+        }
+        @media (max-width: 768px) {
+            .tv-frame {
+                max-width: 95%;
+                border: 4px solid #2d3748;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans min-h-screen">
+    <!-- Header -->
+    <header class="bg-black bg-opacity-80 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <a href="index.html" class="flex items-center space-x-3 hover:text-purple-400 transition">
+                        <i class="fas fa-arrow-left text-xl"></i>
+                        <i class="fas fa-tv text-2xl"></i>
+                        <h1 class="text-xl font-bold">Live TV Player</h1>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="toggleFullscreen()" class="control-btn bg-purple-600 hover:bg-purple-700 px-3 py-2 rounded-lg">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button onclick="refreshPlayer()" class="control-btn bg-green-600 hover:bg-green-700 px-3 py-2 rounded-lg">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Player Section -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="player-container rounded-2xl shadow-2xl overflow-hidden">
+            
+            <!-- Channel Info -->
+            <div class="channel-info text-white p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 id="channelName" class="text-3xl font-bold mb-2 flex items-center">
+                            <i class="fas fa-tv mr-3"></i>
+                            Loading...
+                        </h1>
+                        <p class="text-purple-200">
+                            <i class="fas fa-broadcast-tower mr-2"></i>
+                            กำลังออกอากาศสด • คุณภาพ HD
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <div class="bg-red-600 px-3 py-1 rounded-full text-sm font-semibold animate-pulse">
+                            <i class="fas fa-circle mr-2"></i>LIVE
+                        </div>
+                        <p id="channelId" class="text-sm mt-2 text-purple-200">ID: Loading...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Player -->
+            <div class="p-6">
+                <div class="tv-frame">
+                    <div class="relative" style="padding-bottom: 56.25%;">
+                        <iframe 
+                            id="playerFrame"
+                            src=""
+                            allowfullscreen
+                            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-presentation"
+                            class="absolute top-0 left-0 w-full h-full"
+                            onload="console.log('Player loaded')"
+                            onerror="console.log('Player error')"
+                        ></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="bg-gray-900 p-6">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center space-x-4">
+                        <button onclick="changeQuality('hd')" class="control-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-hd mr-2"></i>HD
+                        </button>
+                        <button onclick="changeQuality('sd')" class="control-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-sd mr-2"></i>SD
+                        </button>
+                        <button onclick="toggleMute()" class="control-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-volume-up" id="muteIcon"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <button onclick="shareChannel()" class="control-btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-share-alt mr-2"></i>แชร์
+                        </button>
+                        <button onclick="openDirect()" class="control-btn bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">
+                            <i class="fas fa-external-link-alt mr-2"></i>Direct
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Alternative Sources -->
+                <div class="mt-6 pt-6 border-t border-gray-700">
+                    <h3 class="text-white font-semibold mb-3">
+                        <i class="fas fa-link mr-2"></i>แหล่งทางเลือก:
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="changeSource('watch')" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
+                            Watch
+                        </button>
+                        <button onclick="changeSource('cast')" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
+                            Cast
+                        </button>
+                        <button onclick="changeSource('plus')" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
+                            Plus
+                        </button>
+                        <button onclick="changeSource('stream')" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
+                            Stream
+                        </button>
+                        <button onclick="changeSource('casting')" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
+                            Casting
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Channels -->
+        <div class="text-center mt-8">
+            <a href="index.html" class="inline-flex items-center bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg transition">
+                <i class="fas fa-arrow-left mr-2"></i>
+                กลับไปหน้ารายการช่อง
+            </a>
+        </div>
+    </main>
+
+    <script>
+        let channelId = null;
+        let channel = null;
+        let isMuted = false;
+        let isFullscreen = false;
+
+        // ดึง channel ID จาก URL
+        function getChannelId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id');
+        }
+
+        // โหลดข้อมูลช่อง
+        async function loadChannel() {
+            channelId = getChannelId();
+            if (!channelId) {
+                document.getElementById('channelName').textContent = 'ไม่พบช่อง';
+                return;
+            }
+
+            try {
+                const response = await fetch('static/data/channels.json');
+                const channels = await response.json();
+                channel = channels.find(c => c.id === channelId);
+                
+                if (channel) {
+                    document.getElementById('channelName').innerHTML = `
+                        <i class="fas fa-tv mr-3"></i>
+                        ${channel.name}
+                    `;
+                    document.getElementById('channelId').textContent = `ID: ${channel.id}`;
+                    document.getElementById('pageTitle').textContent = `${channel.name} - Live TV Player`;
+                    
+                    // โหลด player
+                    loadPlayer();
+                } else {
+                    document.getElementById('channelName').textContent = 'ไม่พบช่องนี้';
+                }
+            } catch (error) {
+                console.error('Error loading channel:', error);
+                document.getElementById('channelName').textContent = 'เกิดข้อผิดพลาด';
+            }
+        }
+
+        function loadPlayer() {
+            if (!channel) return;
+            
+            const iframe = document.getElementById('playerFrame');
+            const sources = [
+                `https://dlhd.pk/watch/stream-${channel.id}.php`,
+                `https://dlhd.pk/cast/stream-${channel.id}.php`,
+                `https://dlhd.pk/plus/stream-${channel.id}.php`,
+                `https://dlhd.pk/stream/stream-${channel.id}.php`,
+                `https://dlhd.pk/casting/stream-${channel.id}.php`
+            ];
+            
+            iframe.src = sources[0]; // ใช้ source แรก
+        }
+
+        function changeSource(type) {
+            if (!channel) return;
+            
+            const iframe = document.getElementById('playerFrame');
+            const sources = {
+                'watch': `https://dlhd.pk/watch/stream-${channel.id}.php`,
+                'cast': `https://dlhd.pk/cast/stream-${channel.id}.php`,
+                'plus': `https://dlhd.pk/plus/stream-${channel.id}.php`,
+                'stream': `https://dlhd.pk/stream/stream-${channel.id}.php`,
+                'casting': `https://dlhd.pk/casting/stream-${channel.id}.php`
+            };
+            
+            iframe.src = sources[type];
+        }
+
+        function toggleFullscreen() {
+            const iframe = document.getElementById('playerFrame');
+            if (!isFullscreen) {
+                if (iframe.requestFullscreen) {
+                    iframe.requestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+            isFullscreen = !isFullscreen;
+        }
+
+        function refreshPlayer() {
+            const iframe = document.getElementById('playerFrame');
+            const currentSrc = iframe.src;
+            iframe.src = '';
+            setTimeout(() => {
+                iframe.src = currentSrc;
+            }, 100);
+        }
+
+        function changeQuality(quality) {
+            refreshPlayer();
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const icon = document.getElementById('muteIcon');
+            if (isMuted) {
+                icon.className = 'fas fa-volume-mute';
+            } else {
+                icon.className = 'fas fa-volume-up';
+            }
+        }
+
+        function shareChannel() {
+            const url = window.location.href;
+            if (navigator.share) {
+                navigator.share({
+                    title: channel ? channel.name : 'Live TV Channel',
+                    url: url
+                });
+            } else {
+                navigator.clipboard.writeText(url);
+                alert('คัดลอกลิงก์แล้ว!');
+            }
+        }
+
+        function openDirect() {
+            if (channel) {
+                window.open(`https://dlhd.pk/watch.php?id=${channel.id}`, '_blank');
+            }
+        }
+
+        // โหลดเมื่อเปิดหน้า
+        document.addEventListener('DOMContentLoaded', loadChannel);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'f' || e.key === 'F') {
+                toggleFullscreen();
+            } else if (e.key === 'r' || e.key === 'R') {
+                refreshPlayer();
+            } else if (e.key === 'm' || e.key === 'M') {
+                toggleMute();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+/* แก้ไขปัญหา CSS และ blocked resources */
+
+/* ป้องกันปัญหาจาก external scripts */
+iframe {
+    border: none !important;
+    outline: none !important;
+}
+
+/* แก้ไขปัญหา display ใน iframe */
+.tv-frame iframe {
+    background: #000 !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ซ่อน error messages จาก iframe */
+.tv-frame iframe::before {
+    content: '' !important;
+}
+
+/* ปรับปรุง performance */
+.channel-card {
+    will-change: transform;
+}
+
+/* แก้ไขปัญหาจาก blocked ads */
+.ad-container {
+    display: none !important;
+}
+
+/* ป้องกันปัญหาจาก popup blockers */
+.popup-overlay {
+    pointer-events: none;
+}
+
+/* แก้ไขปัญหา CORS */
+.cors-error {
+    display: none;
+}
+
+/* ปรับปรุง loading state */
+.loading-spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #667eea;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* แก้ไขปัญหาจาก blocked resources */
+.blocked-resource {
+    display: none !important;
+}
+
+/* ปรับปรุง responsive design */
+@media (max-width: 768px) {
+    .tv-frame {
+        border: 2px solid #2d3748;
+    }
+    
+    .control-btn {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+/* แก้ไขปัญหาจาก external fonts */
+.fallback-font {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* ป้องกันปัญหาจาก tracking scripts */
+.tracking-script {
+    display: none !important;
+}
+
+/* แก้ไขปัญหาจาก analytics */
+.analytics-script {
+    display: none !important;
+}

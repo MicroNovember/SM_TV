@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live TV Channels - ดูทีวีออนไลน์ฟรี</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .channel-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .channel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .category-section {
+            margin-bottom: 3rem;
+        }
+        .search-box {
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.9);
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .main-container {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-tv text-2xl"></i>
+                    <h1 class="text-2xl font-bold">Live TV Channels</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="refreshChannels()" class="bg-white text-purple-600 px-4 py-2 rounded-lg hover:bg-purple-50 transition">
+                        <i class="fas fa-sync-alt mr-2"></i>รีเฟรช
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="sticky top-0 z-40 bg-white bg-opacity-90 shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="max-w-2xl mx-auto">
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        id="searchInput"
+                        placeholder="ค้นหาช่องทีวี... (พิมพ์อย่างน้อย 2 ตัวอักษร)"
+                        class="w-full px-4 py-3 pl-12 pr-20 text-gray-700 bg-white border-2 border-purple-300 rounded-full focus:outline-none focus:border-purple-500"
+                        onkeyup="searchChannels()"
+                    >
+                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-400"></i>
+                    <div class="absolute right-2 top-1/2 transform -translate-y-1/2">
+                        <span id="searchStatus" class="text-xs text-gray-500 mr-2">พิมพ์ 2+ ตัวอักษร</span>
+                        <button 
+                            onclick="clearSearch()" 
+                            class="text-purple-600 hover:text-purple-800 px-2 py-1 rounded-full hover:bg-purple-100"
+                            title="ล้างการค้นหา"
+                        >
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="main-container rounded-2xl shadow-2xl p-8">
+            
+            {% if search_query %}
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">
+                    <i class="fas fa-search mr-2 text-purple-600"></i>
+                    ผลการค้นหา: "{{ search_query }}"
+                </h2>
+                <p class="text-gray-600 mt-1">พบ {{ categories['ผลการค้นหา']|length }} ช่อง</p>
+            </div>
+            {% endif %}
+
+            {% for category, channels in categories.items() %}
+            <div class="category-section">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+                    {% if category == 'กีฬา' %}
+                        <i class="fas fa-football-ball mr-3 text-green-600"></i>
+                    {% elif category == 'ข่าว' %}
+                        <i class="fas fa-newspaper mr-3 text-blue-600"></i>
+                    {% elif category == 'ภาพยนตร์' %}
+                        <i class="fas fa-film mr-3 text-red-600"></i>
+                    {% elif category == 'การ์ตูน' %}
+                        <i class="fas fa-child mr-3 text-yellow-600"></i>
+                    {% else %}
+                        <i class="fas fa-tv mr-3 text-purple-600"></i>
+                    {% endif %}
+                    {{ category }} ({{ channels|length }})
+                </h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                    {% for channel in channels %}
+                    <div 
+                        class="channel-card bg-white rounded-xl shadow-lg overflow-hidden border-2 border-gray-200 hover:border-purple-400"
+                        onclick="watchChannel('{{ channel.id }}')"
+                    >
+                        <div class="bg-gradient-to-r from-purple-500 to-indigo-500 h-20 flex items-center justify-center">
+                            <i class="fas fa-tv text-white text-3xl"></i>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold text-gray-800 text-sm mb-1 line-clamp-2">{{ channel.name }}</h3>
+                            <p class="text-xs text-gray-500">ID: {{ channel.id }}</p>
+                            <div class="mt-2 space-y-1">
+                                <span class="inline-block bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">
+                                    <i class="fas fa-play mr-1"></i>ดูออนไลน์
+                                </span>
+                                <div class="flex gap-1">
+                                    <a href="/watch/{{ channel.id }}" class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full hover:bg-blue-200">
+                                        <i class="fas fa-tv mr-1"></i>Player
+                                    </a>
+                                    <a href="/clean/{{ channel.id }}" class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full hover:bg-green-200">
+                                        <i class="fas fa-shield-alt mr-1"></i>Clean
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-400">
+                <i class="fas fa-info-circle mr-2"></i>
+                รวมช่องทีวีออนไลน์จากทั่วโลก - ดูฟรี 24/7
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function watchChannel(channelId) {
+            window.location.href = `/watch/${channelId}`;
+        }
+
+        let searchTimeout;
+        function searchChannels() {
+            clearTimeout(searchTimeout);
+            const query = document.getElementById('searchInput').value.trim();
+            const status = document.getElementById('searchStatus');
+            
+            // อัพเดต status
+            if (query.length === 0) {
+                status.textContent = 'พิมพ์ 2+ ตัวอักษร';
+                status.className = 'text-xs text-gray-500 mr-2';
+            } else if (query.length === 1) {
+                status.textContent = 'ต้องการอีก 1 ตัวอักษร';
+                status.className = 'text-xs text-yellow-600 mr-2';
+            } else {
+                status.textContent = 'กำลังค้นหา...';
+                status.className = 'text-xs text-blue-600 mr-2';
+            }
+            
+            // รอ 800ms หลังพิมพ์ตัวสุดท้ายก่อนค้นหา
+            searchTimeout = setTimeout(() => {
+                if (query.length >= 2) {  // ต้องพิมพ์อย่างน้อย 2 ตัวอักษร
+                    status.textContent = 'กำลังค้นหา...';
+                    status.className = 'text-xs text-blue-600 mr-2 animate-pulse';
+                    window.location.href = `/search?q=${encodeURIComponent(query)}`;
+                } else if (query.length === 0) {
+                    status.textContent = 'พิมพ์ 2+ ตัวอักษร';
+                    status.className = 'text-xs text-gray-500 mr-2';
+                }
+            }, 800);
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchStatus').textContent = 'พิมพ์ 2+ ตัวอักษร';
+            document.getElementById('searchStatus').className = 'text-xs text-gray-500 mr-2';
+            window.location.href = '/';
+        }
+
+        function refreshChannels() {
+            const btn = event.target;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>กำลังรีเฟรช...';
+            btn.disabled = true;
+            
+            fetch('/refresh')
+                .then(response => response.json())
+                .then(data => {
+                    alert(`รีเฟรชเรียบร้อย! พบ ${data.count} ช่อง`);
+                    location.reload();
+                })
+                .catch(error => {
+                    alert('เกิดข้อผิดพลาดในการรีเฟรช');
+                    btn.innerHTML = '<i class="fas fa-sync-alt mr-2"></i>รีเฟรช';
+                    btn.disabled = false;
+                });
+        }
+
+        // Enter key search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const query = this.value.trim();
+                if (query.length >= 2) {
+                    window.location.href = `/search?q=${encodeURIComponent(query)}`;
+                } else if (query.length === 0) {
+                    window.location.href = '/';
+                } else {
+                    alert('กรุณาพิมพ์อย่างน้อย 2 ตัวอักษรเพื่อค้นหา');
+                }
+            }
+        });
+
+        // โฟกัสที่ช่องค้นหาเมื่อโหลดหน้า
+        window.addEventListener('load', function() {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.focus();
+            
+            // ถ้ามีคำค้นหาจาก URL ให้แสดงในช่องค้นหา
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('q');
+            if (query) {
+                searchInput.value = query;
+                document.getElementById('searchStatus').textContent = `ผลการค้นหา: "${query}"`;
+                document.getElementById('searchStatus').className = 'text-xs text-green-600 mr-2';
+            }
+        });
+    </script>
+</body>
+</html>
