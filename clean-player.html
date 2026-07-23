@@ -3,24 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">Clean Player - Channel</title>
+    <title id="pageTitle">SM-Clean Player<Clean Player</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            color: #e5e7eb;
         }
         .player-container {
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
         }
         .tv-frame {
             background: #000;
-            border: 8px solid #2d3748;
+            border: 6px solid #1e3a8a;
             border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            max-width: 75%;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+            max-width: 85%;
             margin: 0 auto;
+            transition: border-color 0.3s ease;
+        }
+        .tv-frame:hover {
+            border-color: rgba(59, 130, 246, 0.5);
         }
         
         @media (max-width: 1024px) {
@@ -31,8 +38,8 @@
         
         @media (max-width: 768px) {
             .tv-frame {
-                max-width: 95%;
-                border: 4px solid #2d3748;
+                max-width: 98%;
+                border: 3px solid #1e3a8a;
             }
         }
         
@@ -47,6 +54,7 @@
         }
         .source-btn:hover {
             transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
         .loading {
             animation: pulse 2s infinite;
@@ -57,21 +65,21 @@
         }
     </style>
 </head>
-<body class="font-sans min-h-screen">
+<body class="font-sans">
     <!-- Header -->
-    <header class="bg-black bg-opacity-80 text-white shadow-lg">
+    <header class="bg-gray-900 bg-opacity-90 text-white shadow-lg border-b border-blue-900/30">
         <div class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                    <a href="index.html" class="flex items-center space-x-3 hover:text-purple-400 transition">
+                    <a href="index.html" class="flex items-center space-x-3 hover:text-blue-400 transition">
                         <i class="fas fa-arrow-left text-xl"></i>
-                        <i class="fas fa-tv text-2xl"></i>
-                        <h1 class="text-xl font-bold">Clean Player</h1>
+                        <i class="fas fa-tv text-2xl text-blue-400"></i>
+                        <h1 class="text-xl font-bold">Player 2</h1>
                     </a>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <span id="channelStatus" class="bg-green-600 px-3 py-1 rounded-full text-sm">
-                        <i class="fas fa-circle mr-2 animate-pulse"></i>Loading...
+                    <span id="channelStatus" class="bg-blue-900/60 text-blue-200 px-3 py-1 rounded-full text-sm">
+                        <i class="fas fa-circle mr-2 animate-pulse"></i>กำลังโหลด...
                     </span>
                 </div>
             </div>
@@ -79,11 +87,11 @@
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8">
+    <main class="container mx-auto px-4 py-6">
         <div class="player-container rounded-2xl shadow-2xl overflow-hidden">
             
             <!-- Player Area -->
-            <div class="p-6">
+            <div class="p-4 md:p-6">
                 <div class="tv-frame">
                     <div class="relative" style="padding-bottom: 56.25%;">
                         <iframe 
@@ -94,9 +102,9 @@
                             sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"
                             class="absolute top-0 left-0 w-full h-full"
                         ></iframe>
-                        <div id="loadingOverlay" class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center">
+                        <div id="loadingOverlay" class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-80 flex items-center justify-center">
                             <div class="text-center text-white">
-                                <i class="fas fa-spinner fa-spin text-4xl mb-4"></i>
+                                <i class="fas fa-spinner fa-spin text-4xl mb-4 text-blue-400"></i>
                                 <p class="text-lg">กำลังโหลดสตรีม...</p>
                             </div>
                         </div>
@@ -104,57 +112,39 @@
                 </div>
             </div>
 
-            <!-- Source Selection -->
-            <div class="bg-gray-900 p-6">
-                <h3 class="text-white font-semibold mb-4">
-                    <i class="fas fa-link mr-2"></i>เลือกแหล่งที่มาสตรีม:
+            <!-- Alternative Sources & Controls -->
+            <div class="bg-gray-900 p-6 border-t border-blue-900/30">
+                <h3 class="text-white font-semibold mb-3">
+                    <i class="fas fa-link mr-2 text-blue-400"></i>แหล่งทางเลือก:
                 </h3>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-                    <button onclick="loadSource('watch')" class="source-btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg">
-                        <i class="fas fa-play mr-2"></i>Watch
-                    </button>
-                    <button onclick="loadSource('cast')" class="source-btn bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg">
-                        <i class="fas fa-broadcast-tower mr-2"></i>Cast
-                    </button>
-                    <button onclick="loadSource('plus')" class="source-btn bg-purple-600 hover:bg-purple-700 text-white px-4 py-3 rounded-lg">
-                        <i class="fas fa-plus mr-2"></i>Plus
-                    </button>
-                    <button onclick="loadSource('stream')" class="source-btn bg-orange-600 hover:bg-orange-700 text-white px-4 py-3 rounded-lg">
-                        <i class="fas fa-stream mr-2"></i>Stream
-                    </button>
-                    <button onclick="loadSource('casting')" class="source-btn bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-lg">
-                        <i class="fas fa-tv mr-2"></i>Casting
-                    </button>
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <button onclick="loadSource('watch')" class="source-btn bg-blue-900/50 hover:bg-blue-800 text-white px-3 py-1 rounded text-sm">Watch</button>
+                    <button onclick="loadSource('cast')" class="source-btn bg-blue-900/50 hover:bg-blue-800 text-white px-3 py-1 rounded text-sm">Cast</button>
+                    <button onclick="loadSource('plus')" class="source-btn bg-blue-900/50 hover:bg-blue-800 text-white px-3 py-1 rounded text-sm">Plus</button>
+                    <button onclick="loadSource('stream')" class="source-btn bg-blue-900/50 hover:bg-blue-800 text-white px-3 py-1 rounded text-sm">Stream</button>
+                    <button onclick="loadSource('casting')" class="source-btn bg-blue-900/50 hover:bg-blue-800 text-white px-3 py-1 rounded text-sm">Casting</button>
                 </div>
 
-                <!-- Alternative Actions -->
-                <div class="mt-6 pt-6 border-t border-gray-700">
-                    <h4 class="text-white font-semibold mb-3">
-                        <i class="fas fa-tools mr-2"></i>ทางเลือกอื่น:
-                    </h4>
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="openDirect()" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
-                            <i class="fas fa-external-link-alt mr-2"></i>เปิด Direct
-                        </button>
-                        <button onclick="copyLink()" class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg">
-                            <i class="fas fa-copy mr-2"></i>คัดลอกลิงก์
-                        </button>
-                    </div>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="openDirect()" class="source-btn bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+                        <i class="fas fa-external-link-alt mr-2"></i>เปิดตรง
+                    </button>
+                    <button onclick="copyLink()" class="source-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                        <i class="fas fa-copy mr-2"></i>คัดลอกลิงก์
+                    </button>
+                    <button onclick="refreshPlayer()" class="source-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                        <i class="fas fa-sync-alt mr-2"></i>รีเฟรช
+                    </button>
                 </div>
             </div>
         </div>
 
-        <!-- Error Info -->
-        <div class="mt-8 bg-yellow-900 bg-opacity-50 rounded-lg p-6 text-white">
-            <h3 class="font-semibold mb-2">
-                <i class="fas fa-info-circle mr-2"></i>ข้อมูลเกี่ยวกับปัญหาที่อาจเจอ:
-            </h3>
-            <ul class="space-y-1 text-sm text-yellow-200">
-                <li>• <strong>ERR_BLOCKED_BY_CLIENT:</strong> ปิด ad blocker หรือเพิ่ม dlhd.pk ใน whitelist</li>
-                <li>• <strong>Script Errors:</strong> Scripts บางตัวถูก block แต่สตรีมยังทำงานได้</li>
-                <li>• <strong>CORS Issues:</strong> ใช้ proxy หรือเปิดในหน้าต่างใหม่</li>
-                <li>• <strong>Google Frame:</strong> ถูก block แต่ไม่กระทบสตรีม</li>
-            </ul>
+        <!-- Back Button -->
+        <div class="text-center mt-8">
+            <a href="index.html" class="inline-flex items-center bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-lg transition">
+                <i class="fas fa-arrow-left mr-2"></i>
+                กลับไปหน้ารายการช่อง
+            </a>
         </div>
     </main>
 
@@ -173,32 +163,32 @@
         async function loadChannel() {
             channelId = getChannelId();
             if (!channelId) {
-                document.getElementById('channelStatus').textContent = 'ไม่พบช่อง';
+                document.getElementById('channelStatus').innerHTML = `<i class="fas fa-exclamation-triangle mr-2"></i>ไม่พบช่อง`;
                 return;
             }
 
             try {
                 const response = await fetch('static/data/channels.json');
                 const channels = await response.json();
-                channel = channels.find(c => c.id === channelId);
+                channel = channels.find(c => String(c.id) === String(channelId));
                 
                 if (channel) {
                     document.getElementById('channelStatus').innerHTML = `
                         <i class="fas fa-circle mr-2 animate-pulse"></i>
                         ${channel.name}
                     `;
-                    document.getElementById('pageTitle').textContent = `Clean Player - ${channel.name}`;
+                    document.getElementById('pageTitle').textContent = `${channel.name} - Clean Player`;
                     
                     // โหลด source แรกอัตโนมัติ
                     setTimeout(() => {
                         loadSource('watch');
-                    }, 1000);
+                    }, 500);
                 } else {
-                    document.getElementById('channelStatus').textContent = 'ไม่พบช่องนี้';
+                    document.getElementById('channelStatus').innerHTML = `<i class="fas fa-exclamation-circle mr-2"></i>ไม่พบช่องนี้`;
                 }
             } catch (error) {
                 console.error('Error loading channel:', error);
-                document.getElementById('channelStatus').textContent = 'เกิดข้อผิดพลาด';
+                document.getElementById('channelStatus').innerHTML = `<i class="fas fa-times-circle mr-2"></i>เกิดข้อผิดพลาด`;
             }
         }
 
@@ -211,7 +201,7 @@
             // แสดง loading
             loading.style.display = 'flex';
             
-            // ลองแหล่งทางต่างๆ
+            // แหล่งสัญญาณ
             const sources = {
                 'watch': `${baseUrl}/watch/stream-${channel.id}.php`,
                 'cast': `${baseUrl}/cast/stream-${channel.id}.php`,
@@ -221,11 +211,13 @@
             };
             
             iframe.src = sources[type];
-            
-            // ซ่อน loading หลัง 5 วินาที
-            setTimeout(() => {
-                loading.style.display = 'none';
-            }, 5000);
+        }
+
+        function refreshPlayer() {
+            const iframe = document.getElementById('playerFrame');
+            const currentSrc = iframe.src;
+            iframe.src = '';
+            setTimeout(() => iframe.src = currentSrc, 100);
         }
 
         function openDirect() {
@@ -238,14 +230,18 @@
             if (channel) {
                 const link = `${baseUrl}/watch.php?id=${channel.id}`;
                 navigator.clipboard.writeText(link).then(() => {
-                    alert('คัดลอกลิงก์แล้ว: ' + link);
+                    alert('คัดลอกลิงก์เรียบร้อยแล้ว');
+                }).catch(() => {
+                    alert('ไม่สามารถคัดลอกได้ กรุณาลองใหม่');
                 });
             }
         }
 
         // ซ่อน loading เมื่อ iframe โหลดเสร็จ
         document.getElementById('playerFrame').addEventListener('load', () => {
-            document.getElementById('loadingOverlay').style.display = 'none';
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').style.display = 'none';
+            }, 300);
         });
 
         // โหลดเมื่อเปิดหน้า
