@@ -131,11 +131,12 @@
             }
 
             try {
-                const res = await fetch('static/data/channels.json');
+                const res = await fetch('channels.json');
                 const channels = await res.json();
                 channel = channels.find(c => String(c.id) === String(channelId));
 
                 if (channel) {
+					const cleanName = channel.name.replace(/\s*ID:\s*\d+\s*$/i, '').trim();
                     document.getElementById('channelName').textContent = channel.name;
                     document.getElementById('pageTitle').textContent = `${channel.name} - Clean Player`;
                     setTimeout(() => loadSource('watch'), 400);
