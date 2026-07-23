@@ -3,20 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live TV Channels - ดูทีวีออนไลน์ฟรี</title>
+    <title>SM-DADDY TV</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         .channel-card {
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
             cursor: pointer;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0.75rem;
+            position: relative;
+            overflow: hidden;
         }
+        /* เอฟเฟกต์ไฮไลท์เมื่อชี้เมาส์ */
         .channel-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(251, 146, 60, 0.15);
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 12px 30px rgba(251, 146, 60, 0.25);
+            border-color: #fb923c !important;
+            background-color: rgba(251, 146, 60, 0.08) !important;
+        }
+        /* ไฮไลท์ชื่อช่องและไอคอนตอนชี้ */
+        .channel-card:hover h3 {
+            color: #fdba74 !important;
+            font-weight: 600;
+        }
+        .channel-card:hover .tv-icon {
+            color: #fdba74 !important;
+            transform: scale(1.15);
+        }
+        /* เพิ่มแสงเรืองรองขอบ */
+        .channel-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(251, 146, 60, 0.15), transparent);
+            transition: left 0.4s ease;
+        }
+        .channel-card:hover::before {
+            left: 100%;
         }
         .category-section {
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
         body {
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
@@ -28,7 +64,6 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(251, 146, 60, 0.1);
         }
-        /* สไตล์แท็บ */
         .tab-btn {
             transition: all 0.2s ease;
             border-bottom: 3px solid transparent;
@@ -55,7 +90,7 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
                     <i class="fas fa-tv text-2xl text-orange-400"></i>
-                    <h1 class="text-2xl font-bold">Live TV - ควรใช้  Brave Browser</h1>
+                    <h1 class="text-2xl font-bold">SM-DADDY TV - ควรใช้ Brave Browser</h1>
                 </div>
                 <div class="flex items-center space-x-4">
                     <button onclick="refreshChannels()" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-400 transition">
@@ -95,7 +130,7 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
-        <div class="main-container rounded-2xl shadow-2xl p-8">
+        <div class="main-container rounded-2xl shadow-2xl p-6">
             
             <div id="loadingState" class="text-center py-12">
                 <i class="fas fa-spinner fa-spin text-4xl text-orange-400 mb-4"></i>
@@ -103,9 +138,7 @@
             </div>
 
             <div id="content" style="display: none;">
-                <!-- แถบแท็บหมวดหมู่ -->
                 <div id="categoryTabs" class="flex flex-wrap gap-2 mb-8 border-b border-gray-700 pb-2"></div>
-                <!-- พื้นที่แสดงผลช่อง -->
                 <div id="channelsContainer"></div>
             </div>
 
@@ -127,17 +160,15 @@
         let searchTimeout;
         let currentCategory = 'ทั้งหมด';
 
-        // โหลดข้อมูลช่อง
         async function loadChannels() {
             try {
-                const response = await fetch('static/data/channels.json');
-                allChannels = await response.json();
+                const res = await fetch('channels.json');
+                allChannels = await res.json();
                 buildCategoryTabs();
                 filterAndDisplay();
                 document.getElementById('loadingState').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
-            } catch (error) {
-                console.error('Error loading channels:', error);
+            } catch {
                 document.getElementById('loadingState').innerHTML = `
                     <div class="text-orange-400">
                         <i class="fas fa-exclamation-triangle text-4xl mb-4"></i>
@@ -147,11 +178,9 @@
             }
         }
 
-        // สร้างแถบแท็บหมวดหมู่
         function buildCategoryTabs() {
             const categories = ['ทั้งหมด', 'กีฬา', 'ข่าว', 'ภาพยนตร์', 'การ์ตูน', 'ทั่วไป'];
-            const tabsContainer = document.getElementById('categoryTabs');
-            tabsContainer.innerHTML = categories.map(cat => `
+            document.getElementById('categoryTabs').innerHTML = categories.map(cat => `
                 <button 
                     class="tab-btn px-4 py-2 rounded-t-lg font-medium ${cat === currentCategory ? 'active' : ''}"
                     onclick="switchCategory('${cat}')"
@@ -161,88 +190,109 @@
             `).join('');
         }
 
-        // สลับหมวดหมู่
         function switchCategory(category) {
             currentCategory = category;
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.textContent.trim().includes(category)) btn.classList.add('active');
+                btn.classList.toggle('active', btn.textContent.trim().includes(category));
             });
             filterAndDisplay();
         }
 
-        // กรองข้อมูลตามหมวดหมู่และคำค้นหา
         function filterAndDisplay() {
-            const query = document.getElementById('searchInput').value.trim().toLowerCase();
-            let filtered = [...allChannels];
+            const q = document.getElementById('searchInput').value.trim().toLowerCase();
+            let list = [...allChannels];
 
-            // กรองตามคำค้นหา
-            if (query.length >= 2) {
-                filtered = filtered.filter(ch => ch.name.toLowerCase().includes(query));
+            if (q.length >= 2) {
+                list = list.filter(c => c.name.toLowerCase().includes(q));
             }
 
-            // กรองตามหมวดหมู่
             if (currentCategory !== 'ทั้งหมด') {
-                const categorized = categorizeChannels(filtered);
-                filtered = categorized[currentCategory] || [];
+                const map = categorizeChannels(list);
+                list = map[currentCategory] || [];
             }
 
-            displayChannels(filtered, query);
+            displayChannels(list, q);
         }
 
-        // แบ่งหมวดหมู่ช่อง
-        function categorizeChannels(channels) {
-            const categories = {};
-            for (const channel of channels) {
-                let category = 'ทั่วไป';
-                const name = channel.name.toLowerCase();
-                
-                if (anyWordInString(name, ['sport', 'espn', 'fox sport', 'bein', 'arena sport'])) {
-                    category = 'กีฬา';
-                } else if (anyWordInString(name, ['news', 'bbc', 'cnn', 'cnbc'])) {
-                    category = 'ข่าว';
-                } else if (anyWordInString(name, ['movie', 'hbo', 'cinemax', 'axn'])) {
-                    category = 'ภาพยนตร์';
-                } else if (anyWordInString(name, ['cartoon', 'disney', 'nickelodeon', 'boomerang'])) {
-                    category = 'การ์ตูน';
-                }
-                
-                if (!categories[category]) categories[category] = [];
-                categories[category].push(channel);
-            }
-            return categories;
+        function categorizeChannels(list) {
+            const map = {};
+            list.forEach(c => {
+                let type = 'ทั่วไป';
+                const n = c.name.toLowerCase();
+                if (/sport|espn|fox sport|bein|arena sport/.test(n)) type = 'กีฬา';
+                else if (/news|bbc|cnn|cnbc/.test(n)) type = 'ข่าว';
+                else if (/movie|hbo|cinemax|axn/.test(n)) type = 'ภาพยนตร์';
+                else if (/cartoon|disney|nickelodeon|boomerang/.test(n)) type = 'การ์ตูน';
+                if (!map[type]) map[type] = [];
+                map[type].push(c);
+            });
+            return map;
         }
 
-        function anyWordInString(str, words) {
-            return words.some(word => str.includes(word));
+        function getCategoryIcon(cat) {
+            const icons = {
+                'ทั้งหมด': '<i class="fas fa-layer-group mr-2 text-orange-400"></i>',
+                'กีฬา': '<i class="fas fa-football-ball mr-2 text-green-400"></i>',
+                'ข่าว': '<i class="fas fa-newspaper mr-2 text-blue-400"></i>',
+                'ภาพยนตร์': '<i class="fas fa-film mr-2 text-red-400"></i>',
+                'การ์ตูน': '<i class="fas fa-child mr-2 text-yellow-400"></i>',
+                'ทั่วไป': '<i class="fas fa-tv mr-2 text-orange-400"></i>'
+            };
+            return icons[cat] || icons['ทั่วไป'];
         }
 
-        // แสดงช่องทีวี
-        function displayChannels(channels, searchQuery = '') {
+        function createChannelCard(c) {
+            return `
+                <div class="channel-card bg-gray-800 rounded-xl shadow-lg border-2 border-gray-700"
+                     onclick="window.location.href='clean-player.html?id=${c.id}'">
+                    <i class="fas fa-tv tv-icon text-orange-400 text-2xl mb-2 transition-all duration-200"></i>
+                    <h3 class="font-medium text-gray-100 text-sm leading-tight line-clamp-3 transition-all duration-200">${c.name}</h3>
+                </div>
+            `;
+        }
+
+        function displayChannels(list, q = '') {
             const container = document.getElementById('channelsContainer');
-            const categorized = categorizeChannels(channels);
             let html = '';
-            
-            if (searchQuery) {
+
+            if (q) {
                 html += `
                     <div class="mb-6">
                         <h2 class="text-2xl font-bold text-gray-100">
-                            <i class="fas fa-search mr-2 text-orange-400"></i>
-                            ผลการค้นหา: "${searchQuery}"
+                            <i class="fas fa-search mr-2 text-orange-400"></i>ผลการค้นหา: "${q}"
                         </h2>
-                        <p class="text-gray-400 mt-1">พบ ${channels.length} ช่อง</p>
+                        <p class="text-gray-400 mt-1">พบ ${list.length} ช่อง</p>
                     </div>
                 `;
             }
 
-            if (currentCategory === 'ทั้งหมด' && !searchQuery) {
-                for (const [category, catChannels] of Object.entries(categorized)) {
-                    if (catChannels.length === 0) continue;
-                    html += buildCategorySection(category, catChannels);
+            if (currentCategory === 'ทั้งหมด' && !q) {
+                const map = categorizeChannels(list);
+                for (const [cat, items] of Object.entries(map)) {
+                    if (!items.length) continue;
+                    html += `
+                        <div class="category-section">
+                            <h2 class="text-2xl font-bold mb-6 text-gray-100 flex items-center">
+                                ${getCategoryIcon(cat)}${cat} (${items.length})
+                            </h2>
+                            <div class="flex flex-wrap justify-center gap-3">
+                                ${items.map(c => createChannelCard(c)).join('')}
+                            </div>
+                        </div>
+                    `;
                 }
             } else {
-                if (channels.length > 0) {
-                    html += buildCategorySection(currentCategory, channels);
+                if (list.length) {
+                    html += `
+                        <div class="category-section">
+                            <h2 class="text-2xl font-bold mb-6 text-gray-100 flex items-center">
+                                ${getCategoryIcon(currentCategory)}${currentCategory} (${list.length})
+                            </h2>
+                            <div class="flex flex-wrap justify-center gap-3">
+                                ${list.map(c => createChannelCard(c)).join('')}
+                            </div>
+                        </div>
+                    `;
                 } else {
                     html = `
                         <div class="text-center py-12 text-gray-400">
@@ -252,90 +302,30 @@
                     `;
                 }
             }
-            
+
             container.innerHTML = html;
         }
 
-        function buildCategorySection(category, channels) {
-            return `
-                <div class="category-section">
-                    <h2 class="text-2xl font-bold mb-6 text-gray-100 flex items-center">
-                        ${getCategoryIcon(category)}
-                        ${category} (${channels.length})
-                    </h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                        ${channels.map(ch => createChannelCard(ch)).join('')}
-                    </div>
-                </div>
-            `;
-        }
-
-        function getCategoryIcon(category) {
-            const icons = {
-                'ทั้งหมด': '<i class="fas fa-layer-group mr-2 text-orange-400"></i>',
-                'กีฬา': '<i class="fas fa-football-ball mr-2 text-green-400"></i>',
-                'ข่าว': '<i class="fas fa-newspaper mr-2 text-blue-400"></i>',
-                'ภาพยนตร์': '<i class="fas fa-film mr-2 text-red-400"></i>',
-                'การ์ตูน': '<i class="fas fa-child mr-2 text-yellow-400"></i>',
-                'ทั่วไป': '<i class="fas fa-tv mr-2 text-orange-400"></i>'
-            };
-            return icons[category] || icons['ทั่วไป'];
-        }
-
-        function createChannelCard(channel) {
-            return `
-                <div class="channel-card bg-gray-800 rounded-xl shadow-lg overflow-hidden border-2 border-gray-700 hover:border-orange-400/70">
-                    <div class="bg-gradient-to-r from-orange-600/90 to-amber-600/90 h-20 flex items-center justify-center">
-                        <i class="fas fa-tv text-white text-3xl"></i>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-semibold text-gray-100 text-sm mb-1 line-clamp-2">${channel.name}</h3>
-                        <p class="text-xs text-gray-400">ID: ${channel.id}</p>
-                        <div class="mt-2 space-y-1">
-                            <span class="inline-block bg-orange-900/40 text-orange-300 text-xs px-2 py-1 rounded-full">
-                                <i class="fas fa-play mr-1"></i> เลือก เครื่องเล่นวิดีโอ
-                            </span>
-                            <div class="flex gap-1">
-                                <a href="player.html?id=${channel.id}" class="inline-block bg-blue-900/40 text-blue-300 text-xs px-2 py-1 rounded-full hover:bg-blue-900/70">
-                                    <i class="fas fa-tv mr-1"></i>Player 1
-                                </a>
-                                <a href="clean-player.html?id=${channel.id}" class="inline-block bg-green-900/40 text-green-300 text-xs px-2 py-1 rounded-full hover:bg-green-900/70">
-                                    <i class="fas fa-shield-alt mr-1"></i>Player 2
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // ฟังก์ชันค้นหา
         function searchChannels() {
             clearTimeout(searchTimeout);
-            const query = document.getElementById('searchInput').value.trim();
-            const status = document.getElementById('searchStatus');
-            
-            if (query.length === 0) {
-                status.textContent = 'พิมพ์ 2+ ตัวอักษร';
-                status.className = 'text-xs text-gray-400 mr-2';
-            } else if (query.length === 1) {
-                status.textContent = 'ต้องการอีก 1 ตัวอักษร';
-                status.className = 'text-xs text-yellow-400 mr-2';
+            const q = document.getElementById('searchInput').value.trim();
+            const st = document.getElementById('searchStatus');
+
+            if (!q.length) {
+                st.textContent = 'พิมพ์ 2+ ตัวอักษร';
+                st.className = 'text-xs text-gray-400 mr-2';
+            } else if (q.length === 1) {
+                st.textContent = 'ต้องการอีก 1 ตัวอักษร';
+                st.className = 'text-xs text-yellow-400 mr-2';
             } else {
-                status.textContent = 'กำลังค้นหา...';
-                status.className = 'text-xs text-orange-400 mr-2';
+                st.textContent = 'กำลังค้นหา...';
+                st.className = 'text-xs text-orange-400 mr-2';
             }
-            
+
             searchTimeout = setTimeout(() => {
                 filterAndDisplay();
-                if (query.length >= 2) {
-                    const count = document.querySelectorAll('.channel-card').length;
-                    status.textContent = `พบ ${count} ช่อง`;
-                    status.className = 'text-xs text-green-400 mr-2';
-                } else {
-                    status.textContent = 'พิมพ์ 2+ ตัวอักษร';
-                    status.className = 'text-xs text-gray-400 mr-2';
-                }
+                st.textContent = q.length >= 2 ? `พบ ${document.querySelectorAll('.channel-card').length} ช่อง` : 'พิมพ์ 2+ ตัวอักษร';
+                st.className = q.length >= 2 ? 'text-xs text-green-400 mr-2' : 'text-xs text-gray-400 mr-2';
             }, 500);
         }
 
@@ -350,20 +340,13 @@
             location.reload();
         }
 
-        // Event listeners
         document.addEventListener('DOMContentLoaded', loadChannels);
         document.getElementById('searchInput').addEventListener('input', searchChannels);
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+        document.getElementById('searchInput').addEventListener('keypress', e => {
             if (e.key === 'Enter') {
                 e.preventDefault();
-                const query = this.value.trim();
-                if (query.length >= 2) {
-                    filterAndDisplay();
-                } else if (query.length === 0) {
-                    filterAndDisplay();
-                } else {
-                    alert('กรุณาพิมพ์อย่างน้อย 2 ตัวอักษรเพื่อค้นหา');
-                }
+                const q = document.getElementById('searchInput').value.trim();
+                q.length >= 2 || !q ? filterAndDisplay() : alert('พิมพ์อย่างน้อย 2 ตัวอักษร');
             }
         });
     </script>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">SM-Clean Player<Clean Player</title>
+    <title id="pageTitle">Clean Player</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -12,87 +12,83 @@
             min-height: 100vh;
             color: #e5e7eb;
         }
-        .player-container {
+        .player-box {
             background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            backdrop-filter: blur(8px);
         }
-        .tv-frame {
+        .video-frame {
             background: #000;
-            border: 6px solid #1e3a8a;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
-            max-width: 85%;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.15);
+            max-width: 720px; /* ลดขนาดเริ่มต้น */
             margin: 0 auto;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
         }
-        .tv-frame:hover {
+        .video-frame:hover {
             border-color: rgba(59, 130, 246, 0.5);
         }
-        
-        @media (max-width: 1024px) {
-            .tv-frame {
-                max-width: 90%;
-            }
-        }
-        
+        /* ปรับขนาดตามหน้าจอ */
         @media (max-width: 768px) {
-            .tv-frame {
-                max-width: 98%;
-                border: 3px solid #1e3a8a;
+            .video-frame {
+                max-width: 96%;
+                border-width: 3px;
             }
         }
-        
         iframe {
             width: 100%;
             height: 100%;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
         }
-        .source-btn {
-            transition: all 0.3s ease;
+        .btn {
+            transition: all 0.2s ease;
         }
-        .source-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        .btn:hover {
+            transform: translateY(-1px);
         }
         .loading {
-            animation: pulse 2s infinite;
+            animation: pulse 1.8s infinite;
         }
         @keyframes pulse {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            50% { opacity: 0.4; }
+        }
+        /* ซ่อนสิ่งเกินไปตอนเต็มจอ */
+        :-webkit-full-screen {
+            background: #000;
+        }
+        :-ms-fullscreen {
+            background: #000;
+        }
+        :fullscreen {
+            background: #000;
         }
     </style>
 </head>
 <body class="font-sans">
-    <!-- Header -->
-    <header class="bg-gray-900 bg-opacity-90 text-white shadow-lg border-b border-blue-900/30">
-        <div class="container mx-auto px-4 py-4">
+    <!-- ส่วนหัวเรียบง่าย -->
+    <header class="bg-gray-900/85 border-b border-blue-900/30">
+        <div class="container mx-auto px-4 py-3">
             <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <a href="index.html" class="flex items-center space-x-3 hover:text-blue-400 transition">
-                        <i class="fas fa-arrow-left text-xl"></i>
-                        <i class="fas fa-tv text-2xl text-blue-400"></i>
-                        <h1 class="text-xl font-bold">Player 2</h1>
-                    </a>
-                </div>
-                <div class="flex items-center space-x-2">
-                    <span id="channelStatus" class="bg-blue-900/60 text-blue-200 px-3 py-1 rounded-full text-sm">
-                        <i class="fas fa-circle mr-2 animate-pulse"></i>กำลังโหลด...
-                    </span>
-                </div>
+                <a href="index.html" class="flex items-center text-blue-300 hover:text-blue-200 transition">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    <span class="font-medium">กลับ</span>
+                </a>
+                <span id="channelName" class="font-semibold text-blue-300 truncate">กำลังโหลด...</span>
+                <button onclick="toggleFullscreen()" class="btn bg-blue-800/60 hover:bg-blue-700 px-3 py-1 rounded text-sm">
+                    <i class="fas fa-expand"></i> เต็มจอ
+                </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- พื้นที่เล่นหลัก -->
     <main class="container mx-auto px-4 py-6">
-        <div class="player-container rounded-2xl shadow-2xl overflow-hidden">
-            
-            <!-- Player Area -->
-            <div class="p-4 md:p-6">
-                <div class="tv-frame">
+        <div class="player-box rounded-xl shadow-xl overflow-hidden">
+            <div class="p-4">
+                <div class="video-frame">
                     <div class="relative" style="padding-bottom: 56.25%;">
                         <iframe 
                             id="playerFrame"
@@ -102,49 +98,17 @@
                             sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"
                             class="absolute top-0 left-0 w-full h-full"
                         ></iframe>
-                        <div id="loadingOverlay" class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-80 flex items-center justify-center">
-                            <div class="text-center text-white">
-                                <i class="fas fa-spinner fa-spin text-4xl mb-4 text-blue-400"></i>
-                                <p class="text-lg">กำลังโหลดสตรีม...</p>
+                        <div id="loadingOverlay" class="absolute inset-0 bg-black/80 flex items-center justify-center">
+                            <div class="text-center">
+                                <i class="fas fa-spinner fa-spin text-3xl text-blue-400 mb-3"></i>
+                                <p class="text-sm">กำลังโหลดสตรีม...</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Alternative Sources & Controls -->
-            <div class="bg-gray-900 p-6 border-t border-blue-900/30">
-                <h3 class="text-white font-semibold mb-3">
-                    <i class="fas fa-link mr-2 text-blue-400"></i>แหล่งทางเลือก:
-                </h3>
-                <div class="flex flex-wrap gap-2 mb-6">
-                    <button onclick="loadSource('watch')" class="source-btn bg-blue-900/50 hover:bg-blue-800 text-white px-3 py-1 rounded text-sm">Watch</button>
-                    <button onclick="loadSource('cast')" class="source-btn bg-blue-900/50 hover:bg-blue-800 text-white px-3 py-1 rounded text-sm">Cast</button>
-                    <button onclick="loadSource('plus')" class="source-btn bg-blue-900/50 hover:bg-blue-800 text-white px-3 py-1 rounded text-sm">Plus</button>
-                    <button onclick="loadSource('stream')" class="source-btn bg-blue-900/50 hover:bg-blue-800 text-white px-3 py-1 rounded text-sm">Stream</button>
-                    <button onclick="loadSource('casting')" class="source-btn bg-blue-900/50 hover:bg-blue-800 text-white px-3 py-1 rounded text-sm">Casting</button>
-                </div>
-
-                <div class="flex flex-wrap gap-2">
-                    <button onclick="openDirect()" class="source-btn bg-blue-700 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
-                        <i class="fas fa-external-link-alt mr-2"></i>เปิดตรง
-                    </button>
-                    <button onclick="copyLink()" class="source-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
-                        <i class="fas fa-copy mr-2"></i>คัดลอกลิงก์
-                    </button>
-                    <button onclick="refreshPlayer()" class="source-btn bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
-                        <i class="fas fa-sync-alt mr-2"></i>รีเฟรช
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Back Button -->
-        <div class="text-center mt-8">
-            <a href="index.html" class="inline-flex items-center bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-lg transition">
-                <i class="fas fa-arrow-left mr-2"></i>
-                กลับไปหน้ารายการช่อง
-            </a>
+            
         </div>
     </main>
 
@@ -153,98 +117,78 @@
         let channel = null;
         const baseUrl = 'https://dlhd.pk';
 
-        // ดึง channel ID จาก URL
+        // ดึงรหัสช่อง
         function getChannelId() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('id');
+            return new URLSearchParams(window.location.search).get('id');
         }
 
         // โหลดข้อมูลช่อง
         async function loadChannel() {
             channelId = getChannelId();
             if (!channelId) {
-                document.getElementById('channelStatus').innerHTML = `<i class="fas fa-exclamation-triangle mr-2"></i>ไม่พบช่อง`;
+                document.getElementById('channelName').textContent = 'ไม่พบช่อง';
                 return;
             }
 
             try {
-                const response = await fetch('static/data/channels.json');
-                const channels = await response.json();
+                const res = await fetch('static/data/channels.json');
+                const channels = await res.json();
                 channel = channels.find(c => String(c.id) === String(channelId));
-                
+
                 if (channel) {
-                    document.getElementById('channelStatus').innerHTML = `
-                        <i class="fas fa-circle mr-2 animate-pulse"></i>
-                        ${channel.name}
-                    `;
+                    document.getElementById('channelName').textContent = channel.name;
                     document.getElementById('pageTitle').textContent = `${channel.name} - Clean Player`;
-                    
-                    // โหลด source แรกอัตโนมัติ
-                    setTimeout(() => {
-                        loadSource('watch');
-                    }, 500);
+                    setTimeout(() => loadSource('watch'), 400);
                 } else {
-                    document.getElementById('channelStatus').innerHTML = `<i class="fas fa-exclamation-circle mr-2"></i>ไม่พบช่องนี้`;
+                    document.getElementById('channelName').textContent = 'ไม่พบข้อมูลช่อง';
                 }
-            } catch (error) {
-                console.error('Error loading channel:', error);
-                document.getElementById('channelStatus').innerHTML = `<i class="fas fa-times-circle mr-2"></i>เกิดข้อผิดพลาด`;
+            } catch (err) {
+                document.getElementById('channelName').textContent = 'โหลดข้อมูลล้มเหลว';
             }
         }
 
+        // เปลี่ยนแหล่งสัญญาณ
         function loadSource(type) {
             if (!channel) return;
-            
-            const iframe = document.getElementById('playerFrame');
-            const loading = document.getElementById('loadingOverlay');
-            
-            // แสดง loading
-            loading.style.display = 'flex';
-            
-            // แหล่งสัญญาณ
-            const sources = {
-                'watch': `${baseUrl}/watch/stream-${channel.id}.php`,
-                'cast': `${baseUrl}/cast/stream-${channel.id}.php`,
-                'plus': `${baseUrl}/plus/stream-${channel.id}.php`,
-                'stream': `${baseUrl}/stream/stream-${channel.id}.php`,
-                'casting': `${baseUrl}/casting/stream-${channel.id}.php`
-            };
-            
-            iframe.src = sources[type];
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            document.getElementById('playerFrame').src = `${baseUrl}/${type}/stream-${channel.id}.php`;
         }
 
+        // รีเฟรช
         function refreshPlayer() {
-            const iframe = document.getElementById('playerFrame');
-            const currentSrc = iframe.src;
-            iframe.src = '';
-            setTimeout(() => iframe.src = currentSrc, 100);
+            const f = document.getElementById('playerFrame');
+            const tmp = f.src;
+            f.src = '';
+            setTimeout(() => f.src = tmp, 80);
         }
 
+        // เต็มจอ แก้ไขให้ทำงานจริง
+        function toggleFullscreen() {
+            const frame = document.querySelector('.video-frame');
+            if (!document.fullscreenElement) {
+                frame.requestFullscreen?.() || frame.webkitRequestFullscreen?.() || frame.msRequestFullscreen?.();
+            } else {
+                document.exitFullscreen?.() || document.webkitExitFullscreen?.() || document.msExitFullscreen?.();
+            }
+        }
+
+        // เปิดลิงก์ตรง
         function openDirect() {
-            if (channel) {
-                window.open(`${baseUrl}/watch.php?id=${channel.id}`, '_blank');
-            }
+            channel && window.open(`${baseUrl}/watch.php?id=${channel.id}`, '_blank');
         }
 
+        // คัดลอกลิงก์
         function copyLink() {
-            if (channel) {
-                const link = `${baseUrl}/watch.php?id=${channel.id}`;
-                navigator.clipboard.writeText(link).then(() => {
-                    alert('คัดลอกลิงก์เรียบร้อยแล้ว');
-                }).catch(() => {
-                    alert('ไม่สามารถคัดลอกได้ กรุณาลองใหม่');
-                });
-            }
+            if (!channel) return;
+            const link = `${baseUrl}/watch.php?id=${channel.id}`;
+            navigator.clipboard.writeText(link).then(() => alert('คัดลอกแล้ว'));
         }
 
-        // ซ่อน loading เมื่อ iframe โหลดเสร็จ
+        // ซ่อนหน้าโหลดเมื่อวิดีโอเปิด
         document.getElementById('playerFrame').addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loadingOverlay').style.display = 'none';
-            }, 300);
+            setTimeout(() => document.getElementById('loadingOverlay').style.display = 'none', 200);
         });
 
-        // โหลดเมื่อเปิดหน้า
         document.addEventListener('DOMContentLoaded', loadChannel);
     </script>
 </body>
