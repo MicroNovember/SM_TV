@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Discontinued / ยุติการให้บริการ</title>
+    <style>
+        :root {
+            --bg-color: #F2F2F7;
+            --card-bg: rgba(255, 255, 255, 0.82);
+            --text-primary: #1C1C1E;
+            --text-secondary: #8E8E93;
+            --accent-color: #FF3B30;
+            --border-color: rgba(60, 60, 67, 0.12);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #000000;
+                --card-bg: rgba(28, 28, 30, 0.82);
+                --text-primary: #FFFFFF;
+                --text-secondary: #8E8E93;
+                --accent-color: #FF453A;
+                --border-color: rgba(84, 84, 88, 0.36);
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Segoe UI", Thonburi, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 28px;
+            padding: 40px 32px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        .icon-box {
+            width: 68px;
+            height: 68px;
+            background-color: rgba(255, 59, 48, 0.12);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px auto;
+        }
+
+        .icon-box svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--accent-color);
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: -0.4px;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 24px 0;
+        }
+
+        p.description-th {
+            font-size: 15px;
+            line-height: 1.5;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        p.description-en {
+            font-size: 14px;
+            line-height: 1.4;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="icon-box">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+            </svg>
+        </div>
+
+        <h1>ยุติการให้บริการ</h1>
+        <div class="subtitle">Service Discontinued</div>
+
+        <div class="divider"></div>
+
+        <p class="description-th">
+            ระบบได้ทำการยุติการให้บริการอย่างเป็นทางการแล้ว ขออภัยในความไม่สะดวกและขอขอบคุณที่ใช้บริการมาโดยตลอด
+        </p>
+        
+        <p class="description-en">
+            This service has been officially discontinued. We apologize for any inconvenience and thank you for your support.
+        </p>
+    </div>
+
+</body>
+</html>
