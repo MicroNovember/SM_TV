@@ -3,25 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ATMFlix Live Events + Fixtures</title>
+<title>ATMFlix W3U Builder</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <header>
-  <img src="https://kicksball.com/assets/img/logo.png" alt="logo">
-  <h1>ATMFlix Live Events + Fixtures</h1>
+  <img src="https://play-lh.googleusercontent.com/dd1xzBKPa191wv_h3zmr1Np_NqctjGFKYUqxv8tLasOLDc2RMSsGdMo4hrLhYrhcWIhKVYHpfAbBpoq16SjEl10" alt="logo">
+  <h1>ATMFlix W3U Builder</h1>
   <p id="datetime">กำลังโหลด...</p>
 </header>
 
 <div class="toolbar">
   <div class="status" id="status">🌐 กำลังเชื่อมต่อ API...</div>
 
-  <input type="date" id="datePicker" class="date-picker">
-
-  <select id="groupSelect" class="group-select">
-    <option value="">-- ทั้งหมด --</option>
-  </select>
+  <div class="tabs">
+    <button class="tab active" data-tab="all">📦 ทั้งหมด</button>
+    <button class="tab" data-tab="event">📺 Events</button>
+    <button class="tab" data-tab="volley">🏐 Volleyball</button>
+    <button class="tab" data-tab="football">⚽ Football</button>
+  </div>
 
   <input type="text" id="search" class="search-box" placeholder="🔍 ค้นหา...">
 

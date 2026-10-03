@@ -13,7 +13,7 @@ header {
   text-align: center;
   box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
-header img { height: 48px; margin-bottom: 8px; }
+header img { height: 48px; margin-bottom: 8px; border-radius: 10px; }
 header h1 { font-size: 22px; font-weight: 600; }
 header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
 
@@ -27,7 +27,7 @@ header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
   align-items: center;
   justify-content: space-between;
 }
-.status { font-size: 14px; opacity: 0.8; }
+.status { font-size: 13px; opacity: 0.8; }
 
 .btn {
   padding: 10px 18px;
@@ -42,12 +42,26 @@ header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 .btn-primary { background: #3b82f6; color: #fff; }
 .btn-success { background: #10b981; color: #fff; }
-.btn-danger  { background: #ef4444; color: #fff; }
+
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tab {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #2a2f3a;
+  background: #1a1e26;
+  color: #cfd6e2;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.tab:hover { border-color: #3b82f6; }
+.tab.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
 
 .search-box {
   flex: 1;
-  min-width: 200px;
-  max-width: 400px;
+  min-width: 180px;
+  max-width: 320px;
   padding: 10px 14px;
   border-radius: 8px;
   border: 1px solid #2a2f3a;
@@ -58,12 +72,34 @@ header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
 .search-box:focus { outline: none; border-color: #3b82f6; }
 
 .grid {
-  max-width: 1200px;
-  margin: 0 auto 40px;
-  padding: 0 16px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+}
+
+.group-section {
+  max-width: 1200px;
+  margin: 0 auto 28px;
+  padding: 0 16px;
+}
+.group-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #3b82f6;
+  margin: 22px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #232834;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.group-title .count {
+  font-size: 12px;
+  background: #232834;
+  padding: 2px 10px;
+  border-radius: 20px;
+  color: #8b95a7;
 }
 
 .card {
@@ -77,16 +113,42 @@ header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
   text-decoration: none;
   color: inherit;
 }
-.card:hover {
-  transform: translateY(-4px);
-  border-color: #3b82f6;
-}
-.card-thumb {
+.card:hover { transform: translateY(-4px); border-color: #3b82f6; }
+
+.thumb-wrap {
+  position: relative;
   width: 100%;
   aspect-ratio: 16/9;
   background: #0a0d12;
-  object-fit: cover;
+  overflow: hidden;
 }
+.card-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 10px;
+}
+.badge-time {
+  position: absolute; top: 8px; left: 8px;
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: monospace;
+}
+.badge-status {
+  position: absolute; top: 8px; right: 8px;
+  background: #ef4444;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
 .card-body {
   padding: 12px;
   flex: 1;
@@ -109,6 +171,7 @@ header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
   display: flex;
   justify-content: space-between;
   margin-top: auto;
+  gap: 6px;
 }
 .card-channel span:last-child {
   background: #232834;
@@ -137,127 +200,4 @@ header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
   text-align: center;
   padding: 60px 20px;
   opacity: 0.6;
-}
-
-/* ... ของเดิม ... */
-
-.date-picker,
-.group-select {
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1px solid #2a2f3a;
-  background: #1a1e26;
-  color: #e6e6e6;
-  font-size: 14px;
-}
-.date-picker:focus,
-.group-select:focus {
-  outline: none;
-  border-color: #3b82f6;
-}
-
-/* group header */
-.group-section {
-  max-width: 1200px;
-  margin: 0 auto 30px;
-  padding: 0 16px;
-}
-.group-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #3b82f6;
-  margin: 24px 0 12px;
-  padding-bottom: 6px;
-  border-bottom: 2px solid #232834;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.group-title .count {
-  font-size: 13px;
-  background: #232834;
-  padding: 2px 10px;
-  border-radius: 20px;
-  color: #8b95a7;
-}
-
-/* ครอบรูป + badge เวลา/สถานะ */
-.thumb-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16/9;
-  background: #0a0d12;
-  overflow: hidden;
-}
-.thumb-wrap .card-thumb {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;   /* โลโก้ทีมไม่ควรถูก crop */
-  padding: 12px;
-}
-
-.badge-time {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  background: rgba(0,0,0,0.7);
-  color: #fff;
-  padding: 2px 8px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  font-family: monospace;
-}
-
-.badge-status {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: #ef4444;
-  color: #fff;
-  padding: 2px 8px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-/* badge สถานะตามสถานะ */
-.badge-status:empty { display: none; }
-
-/* ส่วนอื่น ๆ ของเดิม */
-.date-picker,
-.group-select {
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1px solid #2a2f3a;
-  background: #1a1e26;
-  color: #e6e6e6;
-  font-size: 14px;
-}
-.date-picker:focus,
-.group-select:focus { outline: none; border-color: #3b82f6; }
-
-.group-section {
-  max-width: 1200px;
-  margin: 0 auto 30px;
-  padding: 0 16px;
-}
-.group-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: #3b82f6;
-  margin: 24px 0 12px;
-  padding-bottom: 6px;
-  border-bottom: 2px solid #232834;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.group-title .count {
-  font-size: 13px;
-  background: #232834;
-  padding: 2px 10px;
-  border-radius: 20px;
-  color: #8b95a7;
 }
