@@ -8,7 +8,7 @@ https://put-your-real-stream-url-here/tnn16/index.m3u8
 https://put-your-real-stream-url-here/true4u/index.m3u8
 
 #EXTINF:-1 tvg-id="ch3hd" tvg-name="CH3 HD" tvg-logo="https://cms.dmpcdn.com/livetv/2023/07/24/5ff3e270-29cc-11ee-b2f4-e9de482d866e_webp_original.webp" group-title="ทีวีดิจิทัล",CH3 HD[cite: 1]
-https://put-your-real-stream-url-here/ch3hd/index.m3u8
+https://ch3-33-web.cdn.byteark.com/live/1080p/index.m3u8
 
 #EXTINF:-1 tvg-id="ch5" tvg-name="CH5" tvg-logo="https://cms.dmpcdn.com/livetv/2023/07/18/7e060a10-2515-11ee-864f-a52221dad038_webp_original.webp" group-title="ทีวีดิจิทัล",CH5[cite: 1]
 https://put-your-real-stream-url-here/ch5/index.m3u8
