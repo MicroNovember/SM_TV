@@ -1,0 +1,283 @@
+#EXTM3U url-tvg="https://drive.google.com/uc?id=1SSSKhaou_MCkmZ2Nat1EYgEjMZYtTW2i"
+
+# ==================== ทีวีดิจิทัล ====================
+#EXTINF:-1 tvg-id="tnn16" tvg-name="TNN16" tvg-logo="https://cms.dmpcdn.com/livetv/2023/10/02/75023d90-60f1-11ee-935a-5d4eba985103_webp_original.webp" group-title="ทีวีดิจิทัล",TNN16[cite: 1]
+https://put-your-real-stream-url-here/tnn16/index.m3u8
+
+#EXTINF:-1 tvg-id="true4u" tvg-name="True4U" tvg-logo="https://cms.dmpcdn.com/livetv/2023/09/15/84504210-5377-11ee-aaa1-7d584d8ca7a4_webp_original.webp" group-title="ทีวีดิจิทัล",True4U[cite: 1]
+https://put-your-real-stream-url-here/true4u/index.m3u8
+
+#EXTINF:-1 tvg-id="ch3hd" tvg-name="CH3 HD" tvg-logo="https://cms.dmpcdn.com/livetv/2023/07/24/5ff3e270-29cc-11ee-b2f4-e9de482d866e_webp_original.webp" group-title="ทีวีดิจิทัล",CH3 HD[cite: 1]
+https://put-your-real-stream-url-here/ch3hd/index.m3u8
+
+#EXTINF:-1 tvg-id="ch5" tvg-name="CH5" tvg-logo="https://cms.dmpcdn.com/livetv/2023/07/18/7e060a10-2515-11ee-864f-a52221dad038_webp_original.webp" group-title="ทีวีดิจิทัล",CH5[cite: 1]
+https://put-your-real-stream-url-here/ch5/index.m3u8
+
+#EXTINF:-1 tvg-id="ch7hd" tvg-name="CH7 HD" tvg-logo="https://cms.dmpcdn.com/livetv/2023/07/19/212d15e0-25e7-11ee-bfc1-85e95548413c_webp_original.webp" group-title="ทีวีดิจิทัล",CH7 HD[cite: 1]
+https://put-your-real-stream-url-here/ch7hd/index.m3u8
+
+#EXTINF:-1 tvg-id="mcothd" tvg-name="MCOT HD" tvg-logo="https://cms.dmpcdn.com/livetv/2023/09/09/9cc40970-4ebe-11ee-9801-97f95b5eed9a_webp_original.webp" group-title="ทีวีดิจิทัล",MCOT HD[cite: 1]
+https://put-your-real-stream-url-here/mcothd/index.m3u8
+
+#EXTINF:-1 tvg-id="nbt" tvg-name="NBT" tvg-logo="https://tvs.dmpcdn.com/livetv/2026/02/13/2f43f1f0-08b9-11f1-94c2-fb632054ae1a_webp_original.webp" group-title="ทีวีดิจิทัล",NBT[cite: 1]
+https://put-your-real-stream-url-here/nbt/index.m3u8
+
+#EXTINF:-1 tvg-id="thaipbs" tvg-name="Thai PBS" tvg-logo="https://cms.dmpcdn.com/livetv/2023/09/15/ab170410-5377-11ee-8e1b-194edbb69638_webp_original.webp" group-title="ทีวีดิจิทัล",Thai PBS[cite: 1]
+https://put-your-real-stream-url-here/thaipbs/index.m3u8
+
+#EXTINF:-1 tvg-id="thairathhd" tvg-name="Thairath HD" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/62acaba0-cd26-11f0-90e1-45e840394ed6_webp_original.webp" group-title="ทีวีดิจิทัล",Thairath HD[cite: 1]
+https://put-your-real-stream-url-here/thairathhd/index.m3u8
+
+#EXTINF:-1 tvg-id="onehd" tvg-name="ONE HD" tvg-logo="https://cms.dmpcdn.com/livetv/2019/01/16/396384be-35dc-4d11-bf04-06c9546ec7bc.png" group-title="ทีวีดิจิทัล",ONE HD[cite: 1]
+https://put-your-real-stream-url-here/onehd/index.m3u8
+
+#EXTINF:-1 tvg-id="ch8" tvg-name="CH8" tvg-logo="https://cms.dmpcdn.com/livetv/2023/09/15/5408a390-5377-11ee-8e1b-194edbb69638_webp_original.webp" group-title="ทีวีดิจิทัล",CH8[cite: 1]
+https://put-your-real-stream-url-here/ch8/index.m3u8
+
+#EXTINF:-1 tvg-id="gmm25" tvg-name="GMM25" tvg-logo="https://cms.dmpcdn.com/livetv/2020/11/19/ed873d50-2a22-11eb-bed4-0972e345f90c_original.png" group-title="ทีวีดิจิทัล",GMM25[cite: 1]
+https://put-your-real-stream-url-here/gmm25/index.m3u8
+
+#EXTINF:-1 tvg-id="nation" tvg-name="Nation" tvg-logo="https://cms.dmpcdn.com/livetv/2023/09/09/9c6f59c0-4ebe-11ee-99a7-832609069236_webp_original.webp" group-title="ทีวีดิจิทัล",Nation[cite: 1]
+https://put-your-real-stream-url-here/nation/index.m3u8
+
+#EXTINF:-1 tvg-id="workpoint" tvg-name="Workpoint" tvg-logo="https://tvs.dmpcdn.com/livetv/2026/09/14/ca777230-aff5-11f1-ba96-7be3436b12ec_webp_original.webp" group-title="ทีวีดิจิทัล",Workpoint[cite: 1]
+https://put-your-real-stream-url-here/workpoint/index.m3u8
+
+#EXTINF:-1 tvg-id="amarinhd" tvg-name="Amarin HD" tvg-logo="https://cms.dmpcdn.com/livetv/2024/07/23/5e86fbc0-48c0-11ef-9fca-d9696b8af2b7_webp_original.webp" group-title="ทีวีดิจิทัล",Amarin HD[cite: 1]
+https://put-your-real-stream-url-here/amarinhd/index.m3u8
+
+#EXTINF:-1 tvg-id="ppvhd" tvg-name="PPTV HD" tvg-logo="https://cms.dmpcdn.com/livetv/2024/06/26/48fb8a90-338b-11ef-a958-ed31043c43a3_webp_original.webp" group-title="ทีวีดิจิทัล",PPTV HD[cite: 1]
+https://put-your-real-stream-url-here/ppvhd/index.m3u8
+
+#EXTINF:-1 tvg-id="tsports" tvg-name="T-Sports" tvg-logo="https://cms.dmpcdn.com/livetv/2022/02/10/e00c0e00-8a3c-11ec-8f9e-831d2ccecc69_webp_original.png" group-title="ทีวีดิจิทัล",T-Sports[cite: 1]
+https://put-your-real-stream-url-here/tsports/index.m3u8
+
+
+# ==================== ฟรีทีวี ====================
+#EXTINF:-1 tvg-id="tnn2" tvg-name="TNN2" tvg-logo="https://cms.dmpcdn.com/livetv/2017/10/18/f1b957db-b175-45fc-ab2b-60150f9c570a.png" group-title="ฟรีทีวี",TNN2[cite: 1]
+https://put-your-real-stream-url-here/tnn2/index.m3u8
+
+#EXTINF:-1 tvg-id="ramachannel" tvg-name="Rama Channel" tvg-logo="https://cms.dmpcdn.com/livetv/2019/01/31/a5aeb78c-c4db-474f-a5af-345cb9e2f5b5.png" group-title="ฟรีทีวี",Rama Channel[cite: 1]
+https://put-your-real-stream-url-here/ramachannel/index.m3u8
+
+#EXTINF:-1 tvg-id="trueplookpanya" tvg-name="ทรู ปลูกปัญญา" tvg-logo="https://cms.dmpcdn.com/livetv/2024/06/04/16813190-2248-11ef-857f-891570708cee_webp_original.webp" group-title="ฟรีทีวี",ทรู ปลูกปัญญา[cite: 1]
+https://put-your-real-stream-url-here/trueplookpanya/index.m3u8
+
+#EXTINF:-1 tvg-id="platgoldhighlight" tvg-name="Plat&Gold Highlight" tvg-logo="https://cms.dmpcdn.com/livetv/2019/12/17/53e863e0-209b-11ea-aaf2-eb7e2dada444_original.png" group-title="ฟรีทีวี",Plat&Gold Highlight[cite: 1]
+https://put-your-real-stream-url-here/platgoldhighlight/index.m3u8
+
+#EXTINF:-1 tvg-id="motogp2" tvg-name="MotoGP 2" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/f03cfcc0-cd28-11f0-90e1-45e840394ed6_webp_original.webp" group-title="ฟรีทีวี",MotoGP 2[cite: 1]
+https://put-your-real-stream-url-here/motogp2/index.m3u8
+
+#EXTINF:-1 tvg-id="fifaplus" tvg-name="FIFA+" tvg-logo="https://cms.dmpcdn.com/livetv/2025/01/17/996460c0-d4bb-11ef-bc18-87acef2f0d44_webp_original.webp" group-title="ฟรีทีวี",FIFA+[cite: 1]
+https://put-your-real-stream-url-here/fifaplus/index.m3u8
+
+
+# ==================== ภาพยนตร์และซีรีส์ ====================
+#EXTINF:-1 tvg-id="truemovieshits" tvg-name="True Movies Hits" tvg-logo="https://cms.dmpcdn.com/livetv/2024/01/16/cccc0160-b44c-11ee-9f05-591527f02603_webp_original.webp" group-title="ภาพยนตร์และซีรีส์",True Movies Hits[cite: 1]
+https://put-your-real-stream-url-here/truemovieshits/index.m3u8
+
+#EXTINF:-1 tvg-id="trueasianmore" tvg-name="True Asian More" tvg-logo="https://cms.dmpcdn.com/livetv/2024/01/16/c8f249a0-b44c-11ee-bbdb-077300b4f5a1_webp_original.webp" group-title="ภาพยนตร์และซีรีส์",True Asian More[cite: 1]
+https://put-your-real-stream-url-here/trueasianmore/index.m3u8
+
+#EXTINF:-1 tvg-id="truethaifilm" tvg-name="True Thai Film" tvg-logo="https://cms.dmpcdn.com/livetv/2024/01/16/cffb79f0-b44d-11ee-80bd-b787d7bab688_webp_original.webp" group-title="ภาพยนตร์และซีรีส์",True Thai Film[cite: 1]
+https://put-your-real-stream-url-here/truethaifilm/index.m3u8
+
+#EXTINF:-1 tvg-id="kbsworldhd" tvg-name="KBS World HD" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/269903f0-cd2d-11f0-90e1-45e840394ed6_webp_original.webp" group-title="ภาพยนตร์และซีรีส์",KBS World HD[cite: 1]
+https://put-your-real-stream-url-here/kbsworldhd/index.m3u8
+
+#EXTINF:-1 tvg-id="truefilm1" tvg-name="True Film 1" tvg-logo="https://cms.dmpcdn.com/livetv/2024/01/16/cad78460-b44c-11ee-80bd-b787d7bab688_webp_original.webp" group-title="ภาพยนตร์และซีรีส์",True Film 1[cite: 1]
+https://put-your-real-stream-url-here/truefilm1/index.m3u8
+
+#EXTINF:-1 tvg-id="rockaction" tvg-name="Rock Action" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/e01c8730-cd27-11f0-90e1-45e840394ed6_webp_original.webp" group-title="ภาพยนตร์และซีรีส์",Rock Action[cite: 1]
+https://put-your-real-stream-url-here/rockaction/index.m3u8
+
+#EXTINF:-1 tvg-id="truefilm2" tvg-name="True Film 2" tvg-logo="https://cms.dmpcdn.com/livetv/2024/01/16/cb3a8bf0-b44c-11ee-bbdb-077300b4f5a1_webp_original.webp" group-title="ภาพยนตร์และซีรีส์",True Film 2[cite: 1]
+https://put-your-real-stream-url-here/truefilm2/index.m3u8
+
+#EXTINF:-1 tvg-id="ccm" tvg-name="CCM" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/8a82bac0-cd26-11f0-90e1-45e840394ed6_webp_original.webp" group-title="ภาพยนตร์และซีรีส์",CCM[cite: 1]
+https://put-your-real-stream-url-here/ccm/index.m3u8
+
+#EXTINF:-1 tvg-id="truefilmasia" tvg-name="True Film Asia" tvg-logo="https://cms.dmpcdn.com/livetv/2024/01/16/cb907420-b44c-11ee-9687-e7ccd66e1ea3_webp_original.webp" group-title="ภาพยนตร์และซีรีส์",True Film Asia[cite: 1]
+https://put-your-real-stream-url-here/truefilmasia/index.m3u8
+
+#EXTINF:-1 tvg-id="rockxstream" tvg-name="Rock X Stream" tvg-logo="https://tvs.dmpcdn.com/livetv/2026/02/09/61c714b0-059c-11f1-8dd5-17ea0c7be3eb_webp_original.webp" group-title="ภาพยนตร์และซีรีส์",Rock X Stream[cite: 1]
+https://put-your-real-stream-url-here/rockxstream/index.m3u8
+
+#EXTINF:-1 tvg-id="iqiyi" tvg-name="iQIYI" tvg-logo="https://tvs.dmpcdn.com/livetv/2026/02/06/84971c50-02c3-11f1-95bd-c3230134d496_webp_original.webp" group-title="ภาพยนตร์และซีรีส์",iQIYI[cite: 1]
+https://put-your-real-stream-url-here/iqiyi/index.m3u8
+
+#EXTINF:-1 tvg-id="tvnasia" tvg-name="tvN Asia" tvg-logo="https://tvs.dmpcdn.com/livetv/2026/01/29/ee675140-fd1e-11f0-ab88-b91fee39e86a_webp_original.webp" group-title="ภาพยนตร์และซีรีส์",tvN Asia[cite: 1]
+https://put-your-real-stream-url-here/tvnasia/index.m3u8
+
+
+# ==================== บันเทิง ====================
+#EXTINF:-1 tvg-id="truexzyte" tvg-name="True X-Zyte" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/22923b00-cd28-11f0-90e1-45e840394ed6_webp_original.webp" group-title="บันเทิง",True X-Zyte[cite: 1]
+https://put-your-real-stream-url-here/truexzyte/index.m3u8
+
+#EXTINF:-1 tvg-id="truelittlemonk" tvg-name="True Little Monk Reality" tvg-logo="https://cms.dmpcdn.com/livetv/2023/07/18/7d74eda0-2515-11ee-864f-a52221dad038_webp_original.webp" group-title="บันเทิง",True Little Monk Reality[cite: 1]
+https://put-your-real-stream-url-here/truelittlemonk/index.m3u8
+
+#EXTINF:-1 tvg-id="rockentertainment" tvg-name="Rock Entertainment" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/eac2f7f0-cd27-11f0-90e1-45e840394ed6_webp_original.webp" group-title="บันเทิง",Rock Entertainment[cite: 1]
+https://put-your-real-stream-url-here/rockentertainment/index.m3u8
+
+#EXTINF:-1 tvg-id="fashiontvhd" tvg-name="Fashion TV HD" tvg-logo="https://cms.dmpcdn.com/livetv/2018/12/17/a915a6a2-2e64-49e4-8049-6741274ce00e.png" group-title="บันเทิง",Fashion TV HD[cite: 1]
+https://put-your-real-stream-url-here/fashiontvhd/index.m3u8
+
+#EXTINF:-1 tvg-id="axnhd" tvg-name="AXN HD" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/031323d0-cd27-11f0-90e1-45e840394ed6_webp_original.webp" group-title="บันเทิง",AXN HD[cite: 1]
+https://put-your-real-stream-url-here/axnhd/index.m3u8
+
+#EXTINF:-1 tvg-id="bbclifestyle" tvg-name="BBC Lifestyle" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/4737e730-cd27-11f0-90e1-45e840394ed6_webp_original.webp" group-title="บันเทิง",BBC Lifestyle[cite: 1]
+https://put-your-real-stream-url-here/bbclifestyle/index.m3u8
+
+#EXTINF:-1 tvg-id="dwenglish" tvg-name="DW English" tvg-logo="https://cms.dmpcdn.com/livetv/2022/09/08/e5b667c0-2f27-11ed-9e57-d98920d4c462_webp_original.png" group-title="บันเทิง",DW English[cite: 1]
+https://put-your-real-stream-url-here/dwenglish/index.m3u8
+
+#EXTINF:-1 tvg-id="arirang" tvg-name="Arirang" tvg-logo="https://cms.dmpcdn.com/livetv/2022/09/08/e55200a0-2f27-11ed-a458-efe831982670_webp_original.png" group-title="บันเทิง",Arirang[cite: 1]
+https://put-your-real-stream-url-here/arirang/index.m3u8
+
+#EXTINF:-1 tvg-id="soulsiam" tvg-name="Soul Siam" tvg-logo="https://tvs.dmpcdn.com/livetv/2026/02/06/51a7e800-02c4-11f1-95bd-c3230134d496_webp_original.webp" group-title="บันเทิง",Soul Siam[cite: 1]
+https://put-your-real-stream-url-here/soulsiam/index.m3u8
+
+#EXTINF:-1 tvg-id="afreality" tvg-name="AF Reality" tvg-logo="https://tvs.dmpcdn.com/livetv/2026/08/17/84b41e60-9a1a-11f1-a0e3-575e3e0bd947_webp_original.webp" group-title="บันเทิง",AF Reality[cite: 1]
+https://put-your-real-stream-url-here/afreality/index.m3u8
+
+
+# ==================== เด็ก ====================
+#EXTINF:-1 tvg-id="truesparkplay" tvg-name="True Spark Play" tvg-logo="https://cms.dmpcdn.com/livetv/2024/01/16/cdd2cd90-b44d-11ee-bbdb-077300b4f5a1_webp_original.webp" group-title="เด็ก",True Spark Play[cite: 1]
+https://put-your-real-stream-url-here/truesparkplay/index.m3u8
+
+#EXTINF:-1 tvg-id="cartoonnetwork" tvg-name="Cartoon Network" tvg-logo="https://cms.dmpcdn.com/livetv/2023/05/26/df4ff010-fb8a-11ed-85ca-7d9b373a85e7_webp_original.png" group-title="เด็ก",Cartoon Network[cite: 1]
+https://put-your-real-stream-url-here/cartoonnetwork/index.m3u8
+
+#EXTINF:-1 tvg-id="nickjr" tvg-name="Nick Jr" tvg-logo="https://cms.dmpcdn.com/livetv/2024/02/04/a1d68100-c37a-11ee-b1bf-63790d8d492b_webp_original.webp" group-title="เด็ก",Nick Jr[cite: 1]
+https://put-your-real-stream-url-here/nickjr/index.m3u8
+
+#EXTINF:-1 tvg-id="dreamworks" tvg-name="Dreamworks" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/9898ba50-cd27-11f0-90e1-45e840394ed6_webp_original.webp" group-title="เด็ก",Dreamworks[cite: 1]
+https://put-your-real-stream-url-here/dreamworks/index.m3u8
+
+
+# ==================== สาระความรู้ ====================
+#EXTINF:-1 tvg-id="discoverychannel" tvg-name="Discovery Channel" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/73680c30-cd28-11f0-90e1-45e840394ed6_webp_original.webp" group-title="สาระความรู้",Discovery Channel[cite: 1]
+https://put-your-real-stream-url-here/discoverychannel/index.m3u8
+
+#EXTINF:-1 tvg-id="trueexplorewild" tvg-name="True Explore Wild" tvg-logo="https://cms.dmpcdn.com/livetv/2024/01/16/ca686ee0-b44c-11ee-9f05-591527f02603_webp_original.webp" group-title="สาระความรู้",True Explore Wild[cite: 1]
+https://put-your-real-stream-url-here/trueexplorewild/index.m3u8
+
+#EXTINF:-1 tvg-id="trueexploresci" tvg-name="True Explore Sci" tvg-logo="https://cms.dmpcdn.com/livetv/2024/01/16/c9f16a20-b44c-11ee-8e80-c3f417d0d932_webp_original.webp" group-title="สาระความรู้",True Explore Sci[cite: 1]
+https://put-your-real-stream-url-here/trueexploresci/index.m3u8
+
+#EXTINF:-1 tvg-id="discoveryasia" tvg-name="Discovery Asia" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/737a7830-cd27-11f0-90e1-45e840394ed6_webp_original.webp" group-title="สาระความรู้",Discovery Asia[cite: 1]
+https://put-your-real-stream-url-here/discoveryasia/index.m3u8
+
+#EXTINF:-1 tvg-id="historychannel" tvg-name="History Channel HD" tvg-logo="https://cms.dmpcdn.com/livetv/2023/05/26/e0b94410-fb8a-11ed-9087-3197146bda13_webp_original.png" group-title="สาระความรู้",History Channel HD[cite: 1]
+https://put-your-real-stream-url-here/historychannel/index.m3u8
+
+
+# ==================== กีฬา ====================
+#EXTINF:-1 tvg-id="truetennis" tvg-name="True Tennis" tvg-logo="https://cms.dmpcdn.com/livetv/2023/04/28/f65ea900-e595-11ed-86b8-bb40638e3c49_webp_original.png" group-title="กีฬา",True Tennis[cite: 1]
+https://put-your-real-stream-url-here/truetennis/index.m3u8
+
+#EXTINF:-1 tvg-id="truesport5" tvg-name="True Sport 5" tvg-logo="https://cms.dmpcdn.com/livetv/2024/01/16/cf4a2b50-b44d-11ee-aa7d-afe908f95743_webp_original.webp" group-title="กีฬา",True Sport 5[cite: 1]
+https://put-your-real-stream-url-here/truesport5/index.m3u8
+
+#EXTINF:-1 tvg-id="truesport4" tvg-name="True Sport 4" tvg-logo="https://cms.dmpcdn.com/livetv/2024/01/16/cf36f170-b44d-11ee-b20d-816339e67c2d_webp_original.webp" group-title="กีฬา",True Sport 4[cite: 1]
+https://put-your-real-stream-url-here/truesport4/index.m3u8
+
+#EXTINF:-1 tvg-id="truesport1" tvg-name="True Sport 1" tvg-logo="https://tvs.dmpcdn.com/livetv/2026/02/23/afc29de0-103e-11f1-9a70-c1ec3b30bbba_webp_original.webp" group-title="กีฬา",True Sport 1[cite: 1]
+https://put-your-real-stream-url-here/truesport1/index.m3u8
+
+#EXTINF:-1 tvg-id="truesport7" tvg-name="True Sport 7" tvg-logo="https://tvs.dmpcdn.com/livetv/2026/01/22/66ee04f0-f74e-11f0-ba85-f96c348926f9_webp_original.webp" group-title="กีฬา",True Sport 7[cite: 1]
+https://put-your-real-stream-url-here/truesport7/index.m3u8
+
+#EXTINF:-1 tvg-id="beinsports1f1" tvg-name="beIN SPORTS 1 (F1)" tvg-logo="https://cms.dmpcdn.com/livetv/2023/07/24/5f3c5240-29cc-11ee-b2f4-e9de482d866e_webp_original.webp" group-title="กีฬา",beIN SPORTS 1 (F1)[cite: 1]
+https://put-your-real-stream-url-here/beinsports1f1/index.m3u8
+
+#EXTINF:-1 tvg-id="beinsports3" tvg-name="beIN SPORTS 3" tvg-logo="https://cms.dmpcdn.com/livetv/2023/07/24/5fda18e0-29cc-11ee-846b-a1c4e5181c87_webp_original.webp" group-title="กีฬา",beIN SPORTS 3[cite: 1]
+https://put-your-real-stream-url-here/beinsports3/index.m3u8
+
+#EXTINF:-1 tvg-id="beinsports6" tvg-name="beIN SPORTS 6" tvg-logo="https://cms.dmpcdn.com/livetv/2023/08/02/2f7ad050-30f6-11ee-b57d-a9829f092f3e_webp_original.webp" group-title="กีฬา",beIN SPORTS 6[cite: 1]
+https://put-your-real-stream-url-here/beinsports6/index.m3u8
+
+#EXTINF:-1 tvg-id="beinsports4" tvg-name="beIN SPORTS 4" tvg-logo="https://cms.dmpcdn.com/livetv/2023/08/02/2f7a5b20-30f6-11ee-8c65-b3a6cba5ed9d_webp_original.webp" group-title="กีฬา",beIN SPORTS 4[cite: 1]
+https://put-your-real-stream-url-here/beinsports4/index.m3u8
+
+#EXTINF:-1 tvg-id="beinsports5" tvg-name="beIN SPORTS 5" tvg-logo="https://cms.dmpcdn.com/livetv/2023/08/02/300adb50-30f6-11ee-b3e7-85edd640cc04_webp_original.webp" group-title="กีฬา",beIN SPORTS 5[cite: 1]
+https://put-your-real-stream-url-here/beinsports5/index.m3u8
+
+#EXTINF:-1 tvg-id="truepremierfootball3" tvg-name="True Premier Football 3" tvg-logo="https://tvs.dmpcdn.com/livetv/2026/01/20/5fc66030-f5d9-11f0-b273-6545e0d7dd49_webp_original.webp" group-title="กีฬา",True Premier Football 3[cite: 1]
+https://put-your-real-stream-url-here/truepremierfootball3/index.m3u8
+
+#EXTINF:-1 tvg-id="truepremierfootball4" tvg-name="True Premier Football 4" tvg-logo="https://cms.dmpcdn.com/livetv/2025/10/27/ec2fe140-b303-11f0-9a71-5d73f0864d0d_webp_original.webp" group-title="กีฬา",True Premier Football 4[cite: 1]
+https://put-your-real-stream-url-here/truepremierfootball4/index.m3u8
+
+#EXTINF:-1 tvg-id="truepremierfootball5" tvg-name="True Premier Football 5" tvg-logo="https://cms.dmpcdn.com/livetv/2025/10/27/ebba3c10-b303-11f0-b265-23dfa726a2d7_webp_original.webp" group-title="กีฬา",True Premier Football 5[cite: 1]
+https://put-your-real-stream-url-here/truepremierfootball5/index.m3u8
+
+#EXTINF:-1 tvg-id="truesport2" tvg-name="True Sport 2" tvg-logo="https://tvs.dmpcdn.com/livetv/2026/02/23/c6f35a90-103e-11f1-9a70-c1ec3b30bbba_webp_original.webp" group-title="กีฬา",True Sport 2[cite: 1]
+https://put-your-real-stream-url-here/truesport2/index.m3u8
+
+#EXTINF:-1 tvg-id="truesport3" tvg-name="True Sport 3" tvg-logo="https://cms.dmpcdn.com/livetv/2024/01/16/ce9707f0-b44d-11ee-8e80-c3f417d0d932_webp_original.webp" group-title="กีฬา",True Sport 3[cite: 1]
+https://put-your-real-stream-url-here/truesport3/index.m3u8
+
+#EXTINF:-1 tvg-id="spotv1" tvg-name="SPOTV1" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/2feed5a0-cd29-11f0-90e1-45e840394ed6_webp_original.webp" group-title="กีฬา",SPOTV1[cite: 1]
+https://put-your-real-stream-url-here/spotv1/index.m3u8
+
+#EXTINF:-1 tvg-id="spotv2" tvg-name="SPOTV2" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/39116580-cd29-11f0-90e1-45e840394ed6_webp_original.webp" group-title="กีฬา",SPOTV2[cite: 1]
+https://put-your-real-stream-url-here/spotv2/index.m3u8
+
+#EXTINF:-1 tvg-id="beinsports2" tvg-name="beIN SPORTS 2" tvg-logo="https://cms.dmpcdn.com/livetv/2023/07/24/5f346300-29cc-11ee-b2f4-e9de482d866e_webp_original.webp" group-title="กีฬา",beIN SPORTS 2[cite: 1]
+https://put-your-real-stream-url-here/beinsports2/index.m3u8
+
+#EXTINF:-1 tvg-id="motogp1" tvg-name="MotoGP 1" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/01c86970-cd29-11f0-90e1-45e840394ed6_webp_original.webp" group-title="กีฬา",MotoGP 1[cite: 1]
+https://put-your-real-stream-url-here/motogp1/index.m3u8
+
+#EXTINF:-1 tvg-id="beinsports1" tvg-name="beIN SPORTS 1" tvg-logo="https://cms.dmpcdn.com/livetv/2023/07/24/5f3c5240-29cc-11ee-b2f4-e9de482d866e_webp_original.webp" group-title="กีฬา",beIN SPORTS 1[cite: 1]
+https://put-your-real-stream-url-here/beinsports1/index.m3u8
+
+#EXTINF:-1 tvg-id="volleyball1" tvg-name="Volleyball 1" tvg-logo="https://cms.dmpcdn.com/livetv/2024/10/10/b59abe50-86d8-11ef-a8fa-3d25198262de_webp_original.webp" group-title="กีฬา",Volleyball 1[cite: 1]
+https://put-your-real-stream-url-here/volleyball1/index.m3u8
+
+#EXTINF:-1 tvg-id="volleyball2" tvg-name="Volleyball 2" tvg-logo="https://cms.dmpcdn.com/livetv/2024/10/10/b5b01b10-86d8-11ef-993d-6b8a9472b5b2_webp_original.webp" group-title="กีฬา",Volleyball 2[cite: 1]
+https://put-your-real-stream-url-here/volleyball2/index.m3u8
+
+#EXTINF:-1 tvg-id="trueballthai1" tvg-name="True Ball Thai 1" tvg-logo="https://cms.dmpcdn.com/livetv/2024/08/14/dd09ebd0-5a16-11ef-ae6e-398d852551da_webp_original.webp" group-title="กีฬา",True Ball Thai 1[cite: 1]
+https://put-your-real-stream-url-here/trueballthai1/index.m3u8
+
+
+# ==================== ข่าว ====================
+#EXTINF:-1 tvg-id="cnnhd" tvg-name="CNN HD" tvg-logo="https://cms.dmpcdn.com/livetv/2023/05/26/e00a1850-fb8a-11ed-bf86-7b9263bde387_webp_original.png" group-title="ข่าว",CNN HD[cite: 1]
+https://put-your-real-stream-url-here/cnnhd/index.m3u8
+
+#EXTINF:-1 tvg-id="cctv4" tvg-name="CCTV4" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/9b1f0520-cd29-11f0-90e1-45e840394ed6_webp_original.webp" group-title="ข่าว",CCTV4[cite: 1]
+https://put-your-real-stream-url-here/cctv4/index.m3u8
+
+#EXTINF:-1 tvg-id="tv5monde" tvg-name="TV5Monde" tvg-logo="https://cms.dmpcdn.com/livetv/2024/12/13/2f5e7fe0-b971-11ef-9ff3-970a2933a4a7_webp_original.webp" group-title="ข่าว",TV5Monde[cite: 1]
+https://put-your-real-stream-url-here/tv5monde/index.m3u8
+
+#EXTINF:-1 tvg-id="phoenixinfonews" tvg-name="Phoenix InfoNews" tvg-logo="https://cms.dmpcdn.com/livetv/2017/10/18/63cee66a-3db9-47f1-8809-869308f2a152.png" group-title="ข่าว",Phoenix InfoNews[cite: 1]
+https://put-your-real-stream-url-here/phoenixinfonews/index.m3u8
+
+#EXTINF:-1 tvg-id="bbcworldnews" tvg-name="BBC World News" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/59dcef50-cd29-11f0-90e1-45e840394ed6_webp_original.webp" group-title="ข่าว",BBC World News[cite: 1]
+https://put-your-real-stream-url-here/bbcworldnews/index.m3u8
+
+#EXTINF:-1 tvg-id="nhkworldpremium" tvg-name="NHK World Premium" tvg-logo="https://cms.dmpcdn.com/livetv/2024/09/18/fda5a510-758b-11ef-8701-b5698fd69830_webp_original.webp" group-title="ข่าว",NHK World Premium[cite: 1]
+https://put-your-real-stream-url-here/nhkworldpremium/index.m3u8
+
+#EXTINF:-1 tvg-id="nhkworldtv" tvg-name="NHK World TV" tvg-logo="https://cms.dmpcdn.com/livetv/2023/05/26/e2cba950-fb8a-11ed-b4ef-f5e84d65e5d3_webp_original.png" group-title="ข่าว",NHK World TV[cite: 1]
+https://put-your-real-stream-url-here/nhkworldtv/index.m3u8
+
+#EXTINF:-1 tvg-id="russiatoday" tvg-name="Russia Today" tvg-logo="https://cms.dmpcdn.com/livetv/2023/02/06/ffa0ac90-a5bf-11ed-bad1-15d489ce9dcb_webp_original.png" group-title="ข่าว",Russia Today[cite: 1]
+https://put-your-real-stream-url-here/russiatoday/index.m3u8
+
+#EXTINF:-1 tvg-id="cgtn" tvg-name="CGTN" tvg-logo="https://cms.dmpcdn.com/livetv/2018/12/17/b6918234-6cda-4315-b4f9-b22ac94d87ae.png" group-title="ข่าว",CGTN[cite: 1]
+https://put-your-real-stream-url-here/cgtn/index.m3u8
+
+#EXTINF:-1 tvg-id="abcaustralia" tvg-name="ABC Australia" tvg-logo="https://tvs.dmpcdn.com/livetv/2025/11/29/b66c00d0-cd29-11f0-90e1-45e840394ed6_webp_original.webp" group-title="ข่าว",ABC Australia[cite: 1]
+https://put-your-real-stream-url-here/abcaustralia/index.m3u8
+
+#EXTINF:-1 tvg-id="aljazeera" tvg-name="Aljazeera" tvg-logo="https://cms.dmpcdn.com/livetv/2017/10/17/20757db0-4fb8-47ac-b112-e25ec5194084.png" group-title="ข่าว",Aljazeera[cite: 1]
+https://put-your-real-stream-url-here/aljazeera/index.m3u8
+
+#EXTINF:-1 tvg-id="cnbc" tvg-name="CNBC" tvg-logo="https://tvs.dmpcdn.com/livetv/2026/01/20/d393bff0-f5fa-11f0-998b-35c4cd412f85_webp_original.webp" group-title="ข่าว",CNBC[cite: 1]
+https://put-your-real-stream-url-here/cnbc/index.m3u8
