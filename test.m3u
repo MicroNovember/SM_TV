@@ -1,4 +1,4 @@
-#EXTM3U url-tvg="https://drive.google.com/uc?id=1SSSKhaou_MCkmZ2Nat1EYgEjMZYtTW2i"
+#EXTM3U url-tvg="https://github.com/MicroNovember/SM_TV/raw/refs/heads/main/true_epg_complete.xml"
 
 # ==================== ทีวีดิจิทัล ====================
 #EXTINF:-1 tvg-id="tnn16" tvg-name="TNN16" tvg-logo="https://cms.dmpcdn.com/livetv/2023/10/02/75023d90-60f1-11ee-935a-5d4eba985103_webp_original.webp" group-title="ทีวีดิจิทัล",TNN16[cite: 1]
