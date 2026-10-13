@@ -1,44 +1,385 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ATMFlix W3U Builder</title>
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KLTRA Live - Split Screen iOS Style</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --sidebar-bg: #121212;
+            --card-bg: #1c1c1e;
+            --card-hover: #2c2c2e;
+            --text-primary: #ffffff;
+            --text-secondary: #8e8e93;
+            --accent-color: #0a84ff;
+            --live-red: #ff453a;
+            --border-color: #2c2c2e;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* โครงสร้างหลักแบ่งครึ่งหน้าจอ */
+        .app-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* ฝั่งซ้าย: รายการแข่งขัน */
+        .sidebar {
+            width: 420px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .sidebar-header {
+            padding: 20px 16px 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+        }
+
+        .sidebar-header p {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .match-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .match-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 14px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .match-card:hover {
+            background-color: var(--card-hover);
+        }
+
+        .match-card.active {
+            border-color: var(--accent-color);
+            background-color: #1a2634;
+        }
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 11px;
+        }
+
+        .league-badge {
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 250px;
+        }
+
+        .live-tag {
+            background-color: rgba(255, 69, 58, 0.2);
+            color: var(--live-red);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .live-dot {
+            width: 5px;
+            height: 5px;
+            background-color: var(--live-red);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .teams-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .team-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .team-row img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+        }
+
+        .match-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* ฝั่งขวา: หน้าจอแสดง Iframe ฝังตัว */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background-color: var(--bg-color);
+        }
+
+        .player-topbar {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--sidebar-bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .player-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .player-viewport {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: #050505;
+        }
+
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-height: calc(100vh - 80px);
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border: 1px solid var(--border-color);
+        }
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .placeholder-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .placeholder-screen svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            opacity: 0.4;
+        }
+
+        .loading, .no-data {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 30px;
+            font-size: 14px;
+        }
+
+        /* Responsive สำหรับมือถือหรือจอเล็ก (เปลี่ยนเป็นเรียงบน-ล่าง) */
+        @media (max-width: 900px) {
+            .app-container {
+                flex-direction: column;
+                height: 100vh;
+                overflow-y: auto;
+            }
+            body {
+                overflow: auto;
+            }
+            .sidebar {
+                width: 100%;
+                height: 50vh;
+            }
+            .main-content {
+                height: 50vh;
+                min-height: 350px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <img src="https://play-lh.googleusercontent.com/dd1xzBKPa191wv_h3zmr1Np_NqctjGFKYUqxv8tLasOLDc2RMSsGdMo4hrLhYrhcWIhKVYHpfAbBpoq16SjEl10" alt="logo">
-  <h1>ATMFlix W3U Builder</h1>
-  <p id="datetime">กำลังโหลด...</p>
-</header>
+    <div class="app-container">
+        <!-- ฝั่งซ้าย: รายการแข่งขัน -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>Live Events</h1>
+                <p>เลือกรายการเพื่อรับชมในหน้าจอขวา</p>
+            </div>
+            <div id="matches-container" class="match-list">
+                <div class="loading">กำลังโหลดรายการ...</div>
+            </div>
+        </div>
 
-<div class="toolbar">
-  <div class="status" id="status">🌐 กำลังเชื่อมต่อ API...</div>
+        <!-- ฝั่งขวา: หน้าจอ Embed Player แบบเต็มพื้นที่ -->
+        <div class="main-content">
+            <div class="player-topbar">
+                <span id="current-match-title" class="player-title">กรุณาเลือกคู่แข่งขันจากรายการด้านซ้าย</span>
+            </div>
+            <div class="player-viewport">
+                <div id="player-wrapper" class="iframe-container">
+                    <div id="placeholder" class="placeholder-screen">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon>
+                        </svg>
+                        <p>ยังไม่ได้เลือกช่องรับชม</p>
+                    </div>
+                    <iframe id="live-iframe" src="" allowfullscreen style="display: none;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div class="tabs">
-    <button class="tab active" data-tab="all">📦 ทั้งหมด</button>
-    <button class="tab" data-tab="event">📺 Events</button>
-    <button class="tab" data-tab="volley">🏐 Volleyball</button>
-    <button class="tab" data-tab="football">⚽ Football</button>
-  </div>
+    <script>
+        async function loadEvents() {
+            try {
+                const response = await fetch('live_events.json');
+                const events = await response.json();
+                
+                const container = document.getElementById('matches-container');
+                container.innerHTML = '';
 
-  <input type="text" id="search" class="search-box" placeholder="🔍 ค้นหา...">
+                if (events.length === 0) {
+                    container.innerHTML = '<div class="no-data">ไม่พบรายการแข่งขันสดในขณะนี้</div>';
+                    return;
+                }
 
-  <div>
-    <button class="btn btn-primary" id="reloadBtn">🔄 โหลดใหม่</button>
-    <button class="btn btn-success" id="downloadBtn" disabled>⬇️ ดาวน์โหลด .w3u</button>
-  </div>
-</div>
+                events.forEach((ev, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'match-card';
+                    card.onclick = () => selectMatch(ev, card);
 
-<div id="content">
-  <div class="loader">
-    <div class="spinner"></div>
-    กำลังดึงข้อมูล...
-  </div>
-</div>
+                    card.innerHTML = `
+                        <div class="match-header">
+                            <span class="league-badge" title="${ev.league || ev.category}">${ev.league || ev.category}</span>
+                            <div class="live-tag">
+                                <div class="live-dot"></div> LIVE
+                            </div>
+                        </div>
+                        <div class="teams-container">
+                            <div class="team-row">
+                                <img src="${ev.home_logo || ''}" onerror="this.style.display='none'">
+                                <span>${ev.home}</span>
+                            </div>
+                            <div class="team-row">
+                                <img src="${ev.away_logo || ''}" onerror="this.style.display='none'">
+                                <span>${ev.away}</span>
+                            </div>
+                        </div>
+                        <div class="match-footer">
+                            <span>🕒 ${ev.time_display || ev.time_utc || ''}</span>
+                            <span style="color: var(--accent-color); font-weight: 500;">รับชม ▸</span>
+                        </div>
+                    `;
+                    container.appendChild(card);
 
-<script src="js/app.js"></script>
+                    // เลือกแมตช์แรกให้อัตโนมัติเมื่อโหลดหน้าเว็บครั้งแรก
+                    if (index === 0 && ev.stream_url) {
+                        selectMatch(ev, card);
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error loading JSON:', error);
+                document.getElementById('matches-container').innerHTML = 
+                    '<div class="no-data">ไม่พบไฟล์ live_events.json กรุณารันสคริปต์ Python ก่อน</div>';
+            }
+        }
+
+        function selectMatch(ev, cardElement) {
+            // เอา Active class ออกจากทุกการ์ด
+            document.querySelectorAll('.match-card').forEach(c => c.classList.remove('active'));
+            // ใส่ Active class ให้การ์ดที่ถูกเลือก
+            if (cardElement) {
+                cardElement.classList.add('active');
+            }
+
+            const titleEl = document.getElementById('current-match-title');
+            const iframe = document.getElementById('live-iframe');
+            const placeholder = document.getElementById('placeholder');
+
+            if (!ev.stream_url) {
+                alert('ไม่พบลิงก์สตรีมสำหรับรายการนี้');
+                return;
+            }
+
+            titleEl.innerText = `${ev.league ? ev.league + ' — ' : ''}${ev.home} vs ${ev.away}`;
+            
+            placeholder.style.display = 'none';
+            iframe.style.display = 'block';
+            iframe.src = ev.stream_url;
+        }
+
+        // เริ่มโหลดข้อมูล
+        loadEvents();
+    </script>
 </body>
 </html>
