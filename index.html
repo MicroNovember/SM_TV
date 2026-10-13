@@ -23,33 +23,33 @@
             background-color: var(--bg-color);
             color: var(--text-primary);
             margin: 0;
-            padding: 20px;
+            padding: 12px;
             -webkit-font-smoothing: antialiased;
         }
 
         header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
-        header h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px 0; }
-        header p { color: var(--text-secondary); font-size: 14px; margin: 0 0 16px 0; }
+        header h1 { font-size: 22px; font-weight: 700; margin: 0 0 4px 0; }
+        header p { color: var(--text-secondary); font-size: 13px; margin: 0 0 12px 0; }
 
-        /* เมนูสลับหน้าจอ (Tab Switcher) */
+        /* เมนูสลับแท็บ */
         .tab-menu {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 24px;
+            gap: 8px;
+            margin-bottom: 16px;
         }
 
         .tab-btn {
             background-color: var(--card-bg);
             color: var(--text-secondary);
             border: 1px solid var(--border-color);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 14px;
+            padding: 6px 16px;
+            border-radius: 18px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -61,18 +61,41 @@
             border-color: var(--accent-color);
         }
 
+        /* Grid สำหรับแมตช์การแข่งขัน */
         .match-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
+        /* Grid สำหรับช่องทีวี (ปรับให้ช่องเล็กลง แสดงผลหลายคอลัมน์บนมือถือ) */
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 คอลัมน์บนมือถือ */
+            gap: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 600px) {
+            .channel-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 900px) {
+            .channel-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        /* ดีไซน์การ์ดแมตช์ */
         .match-card {
             background-color: var(--card-bg);
-            border-radius: 14px;
-            padding: 16px;
+            border-radius: 12px;
+            padding: 12px;
             border: 1px solid rgba(255,255,255,0.05);
             transition: transform 0.2s ease, background-color 0.2s ease;
             cursor: pointer;
@@ -90,8 +113,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            font-size: 12px;
+            margin-bottom: 8px;
+            font-size: 11px;
         }
 
         .league-badge {
@@ -102,23 +125,24 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 220px;
+            max-width: 180px;
         }
 
         .live-tag {
             background-color: rgba(255, 69, 58, 0.2);
             color: var(--live-red);
-            padding: 2px 8px;
-            border-radius: 6px;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 4px;
+            font-size: 10px;
         }
 
         .live-dot {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             background-color: var(--live-red);
             border-radius: 50%;
             animation: pulse 1.5s infinite;
@@ -133,21 +157,21 @@
         .teams-container {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-bottom: 16px;
+            gap: 6px;
+            margin-bottom: 10px;
         }
 
         .team-row {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 15px;
+            gap: 8px;
+            font-size: 13px;
             font-weight: 500;
         }
 
         .team-row img {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             object-fit: contain;
         }
 
@@ -156,8 +180,8 @@
             justify-content: space-between;
             align-items: center;
             border-top: 1px solid var(--border-color);
-            padding-top: 10px;
-            font-size: 13px;
+            padding-top: 8px;
+            font-size: 11px;
             color: var(--text-secondary);
         }
 
@@ -165,18 +189,82 @@
             background-color: var(--accent-color);
             color: white;
             border: none;
-            padding: 6px 14px;
-            border-radius: 16px;
+            padding: 4px 10px;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 11px;
             cursor: pointer;
+        }
+
+        /* ดีไซน์การ์ดช่องทีวีขนาดเล็ก (Compact Channel Card) */
+        .channel-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            justify-content: space-between;
+            height: 115px;
+        }
+
+        .channel-card:hover {
+            background-color: var(--card-hover);
+            transform: translateY(-2px);
+            border-color: rgba(10, 132, 255, 0.4);
+        }
+
+        .channel-logo-wrap {
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+        }
+
+        .channel-card img {
+            max-height: 40px;
+            max-width: 80px;
+            object-fit: contain;
+        }
+
+        .channel-name {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .channel-status {
+            font-size: 9px;
+            color: #30d158;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .channel-dot {
+            width: 4px;
+            height: 4px;
+            background-color: #30d158;
+            border-radius: 50%;
         }
 
         .loading, .no-data {
             text-align: center;
             color: var(--text-secondary);
             padding: 40px;
-            font-size: 15px;
+            font-size: 14px;
             grid-column: 1 / -1;
         }
     </style>
@@ -187,7 +275,6 @@
         <h1>KLTRA Live Center</h1>
         <p>iOS Style Hub</p>
         
-        <!-- เมนูสลับแท็บ -->
         <div class="tab-menu">
             <button class="tab-btn active" id="btn-matches" onclick="switchTab('matches')">⚽ รายการแข่งขันสด</button>
             <button class="tab-btn" id="btn-channels" onclick="switchTab('channels')">📺 ช่องรายการทีวี</button>
@@ -206,6 +293,13 @@
             currentTab = tab;
             document.getElementById('btn-matches').classList.toggle('active', tab === 'matches');
             document.getElementById('btn-channels').classList.toggle('active', tab === 'channels');
+            
+            const container = document.getElementById('content-container');
+            if (tab === 'matches') {
+                container.className = 'match-grid';
+            } else {
+                container.className = 'channel-grid';
+            }
             loadData();
         }
 
@@ -286,7 +380,7 @@
 
             channels.forEach(ch => {
                 const card = document.createElement('div');
-                card.className = 'match-card';
+                card.className = 'channel-card';
                 card.onclick = () => {
                     if (ch.stream_url) {
                         window.open(ch.stream_url, '_blank');
@@ -296,27 +390,18 @@
                 };
 
                 card.innerHTML = `
-                    <div>
-                        <div class="match-header">
-                            <span class="league-badge">TV CHANNEL</span>
-                            <div class="live-tag" style="background-color: rgba(48, 209, 88, 0.2); color: #30d158;">
-                                <div class="live-dot" style="background-color: #30d158;"></div> ${ch.status || 'ONLINE'}
-                            </div>
-                        </div>
-                        <div class="teams-container" style="align-items: center; text-align: center; padding: 10px 0;">
-                            <img src="${ch.logo || ''}" style="height: 45px; max-width: 120px; object-fit: contain; margin-bottom: 8px;" onerror="this.style.display='none'">
-                            <span style="font-size: 16px; font-weight: 600;">${ch.name}</span>
-                        </div>
+                    <div class="channel-logo-wrap">
+                        <img src="${ch.logo || ''}" onerror="this.style.display='none'">
                     </div>
-                    <div class="match-footer" style="justify-content: flex-end;">
-                        <button class="watch-btn">รับชมช่องนี้ ▸</button>
+                    <div class="channel-name" title="${ch.name}">${ch.name}</div>
+                    <div class="channel-status">
+                        <div class="channel-dot"></div> ${ch.status || 'Online'}
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        // โหลดข้อมูลเริ่มต้น
         loadData();
     </script>
 </body>
