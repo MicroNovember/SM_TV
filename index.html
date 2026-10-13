@@ -29,11 +29,37 @@
 
         header {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         header h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px 0; }
-        header p { color: var(--text-secondary); font-size: 14px; margin: 0; }
+        header p { color: var(--text-secondary); font-size: 14px; margin: 0 0 16px 0; }
+
+        /* เมนูสลับหน้าจอ (Tab Switcher) */
+        .tab-menu {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .tab-btn {
+            background-color: var(--card-bg);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
 
         .match-grid {
             display: grid;
@@ -158,75 +184,140 @@
 <body>
 
     <header>
-        <h1>Live Events</h1>
-        <p>iOS Style Match Center</p>
+        <h1>KLTRA Live Center</h1>
+        <p>iOS Style Hub</p>
+        
+        <!-- เมนูสลับแท็บ -->
+        <div class="tab-menu">
+            <button class="tab-btn active" id="btn-matches" onclick="switchTab('matches')">⚽ รายการแข่งขันสด</button>
+            <button class="tab-btn" id="btn-channels" onclick="switchTab('channels')">📺 ช่องรายการทีวี</button>
+        </div>
     </header>
 
-    <div id="matches-container" class="match-grid">
-        <div class="loading">กำลังโหลดรายการสด...</div>
+    <!-- พื้นที่แสดงผลข้อมูล -->
+    <div id="content-container" class="match-grid">
+        <div class="loading">กำลังโหลดข้อมูล...</div>
     </div>
 
     <script>
-        async function loadEvents() {
+        let currentTab = 'matches';
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.getElementById('btn-matches').classList.toggle('active', tab === 'matches');
+            document.getElementById('btn-channels').classList.toggle('active', tab === 'channels');
+            loadData();
+        }
+
+        async function loadData() {
+            const container = document.getElementById('content-container');
+            container.innerHTML = '<div class="loading">กำลังโหลดข้อมูล...</div>';
+
             try {
-                const response = await fetch('live_events.json');
-                const events = await response.json();
-                
-                const container = document.getElementById('matches-container');
-                container.innerHTML = '';
-
-                if (events.length === 0) {
-                    container.innerHTML = '<div class="no-data">ไม่พบรายการแข่งขันสดในขณะนี้</div>';
-                    return;
+                if (currentTab === 'matches') {
+                    const response = await fetch('live_events.json');
+                    const events = await response.json();
+                    renderMatches(events);
+                } else {
+                    const response = await fetch('live-channel.json');
+                    const channels = await response.json();
+                    renderChannels(channels);
                 }
-
-                events.forEach(ev => {
-                    const card = document.createElement('div');
-                    card.className = 'match-card';
-                    // เปิดลิงก์ตรงในแท็บใหม่ทันที เพื่อให้ Player ทำงานได้ปกติไม่โดนบล็อก
-                    card.onclick = () => {
-                        if (ev.stream_url) {
-                            window.open(ev.stream_url, '_blank');
-                        } else {
-                            alert('ไม่พบลิงก์สตรีมสำหรับรายการนี้');
-                        }
-                    };
-
-                    card.innerHTML = `
-                        <div>
-                            <div class="match-header">
-                                <span class="league-badge" title="${ev.league || ev.category}">${ev.league || ev.category}</span>
-                                <div class="live-tag">
-                                    <div class="live-dot"></div> LIVE
-                                </div>
-                            </div>
-                            <div class="teams-container">
-                                <div class="team-row">
-                                    <img src="${ev.home_logo || ''}" onerror="this.style.display='none'">
-                                    <span>${ev.home}</span>
-                                </div>
-                                <div class="team-row">
-                                    <img src="${ev.away_logo || ''}" onerror="this.style.display='none'">
-                                    <span>${ev.away}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="match-footer">
-                            <span>🕒 ${ev.time_display || ev.time_utc || ''}</span>
-                            <button class="watch-btn">รับชม ▸</button>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-
             } catch (error) {
-                console.error('Error loading JSON:', error);
-                document.getElementById('matches-container').innerHTML = 
-                    '<div class="no-data">ไม่พบไฟล์ live_events.json กรุณารันสคริปต์ Python ก่อน</div>';
+                console.error('Error loading data:', error);
+                container.innerHTML = `<div class="no-data">ไม่พบไฟล์ข้อมูล หรือเกิดข้อผิดพลาดในการโหลด (${currentTab === 'matches' ? 'live_events.json' : 'live-channel.json'})</div>`;
             }
         }
 
-        loadEvents();
+        function renderMatches(events) {
+            const container = document.getElementById('content-container');
+            container.innerHTML = '';
+
+            if (!events || events.length === 0) {
+                container.innerHTML = '<div class="no-data">ไม่พบรายการแข่งขันสดในขณะนี้</div>';
+                return;
+            }
+
+            events.forEach(ev => {
+                const card = document.createElement('div');
+                card.className = 'match-card';
+                card.onclick = () => {
+                    if (ev.stream_url) {
+                        window.open(ev.stream_url, '_blank');
+                    } else {
+                        alert('ไม่พบลิงก์สตรีมสำหรับรายการนี้');
+                    }
+                };
+
+                card.innerHTML = `
+                    <div>
+                        <div class="match-header">
+                            <span class="league-badge" title="${ev.league || ev.category}">${ev.league || ev.category}</span>
+                            <div class="live-tag"><div class="live-dot"></div> LIVE</div>
+                        </div>
+                        <div class="teams-container">
+                            <div class="team-row">
+                                <img src="${ev.home_logo || ''}" onerror="this.style.display='none'">
+                                <span>${ev.home}</span>
+                            </div>
+                            <div class="team-row">
+                                <img src="${ev.away_logo || ''}" onerror="this.style.display='none'">
+                                <span>${ev.away}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="match-footer">
+                        <span>🕒 ${ev.time_display || ev.time_utc || ''}</span>
+                        <button class="watch-btn">รับชม ▸</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderChannels(channels) {
+            const container = document.getElementById('content-container');
+            container.innerHTML = '';
+
+            if (!channels || channels.length === 0) {
+                container.innerHTML = '<div class="no-data">ไม่พบช่องรายการทีวีในขณะนี้</div>';
+                return;
+            }
+
+            channels.forEach(ch => {
+                const card = document.createElement('div');
+                card.className = 'match-card';
+                card.onclick = () => {
+                    if (ch.stream_url) {
+                        window.open(ch.stream_url, '_blank');
+                    } else {
+                        alert('ไม่พบลิงก์สตรีมสำหรับช่องนี้');
+                    }
+                };
+
+                card.innerHTML = `
+                    <div>
+                        <div class="match-header">
+                            <span class="league-badge">TV CHANNEL</span>
+                            <div class="live-tag" style="background-color: rgba(48, 209, 88, 0.2); color: #30d158;">
+                                <div class="live-dot" style="background-color: #30d158;"></div> ${ch.status || 'ONLINE'}
+                            </div>
+                        </div>
+                        <div class="teams-container" style="align-items: center; text-align: center; padding: 10px 0;">
+                            <img src="${ch.logo || ''}" style="height: 45px; max-width: 120px; object-fit: contain; margin-bottom: 8px;" onerror="this.style.display='none'">
+                            <span style="font-size: 16px; font-weight: 600;">${ch.name}</span>
+                        </div>
+                    </div>
+                    <div class="match-footer" style="justify-content: flex-end;">
+                        <button class="watch-btn">รับชมช่องนี้ ▸</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // โหลดข้อมูลเริ่มต้น
+        loadData();
     </script>
 </body>
 </html>
